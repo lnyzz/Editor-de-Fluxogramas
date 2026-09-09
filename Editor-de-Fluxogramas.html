@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editor de Fluxogramas</title>
+<style>
+  :root{
+    --bg:#f4f6f9;
+    --panel:#ffffff;
+    --border:#d7dce2;
+    --text:#111111;
+    --muted:#667085;
+    --accent:#2563eb;
+    --danger:#dc2626;
+    --node-fill:#eef1f5;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{
+    font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    overflow:hidden;
+  }
+  .app{height:100vh;display:grid;grid-template-rows:58px 1fr}
+  header{
+    background:#fff;border-bottom:1px solid var(--border);
+    display:flex;align-items:center;gap:12px;padding:0 16px;
+  }
+  .brand{font-weight:800;font-size:16px;margin-right:auto}
+  button, select, input, textarea{
+    font:inherit;
+  }
+  button{
+    border:1px solid var(--border);background:#fff;color:#111;
+    border-radius:8px;padding:8px 12px;cursor:pointer;
+  }
+  button:hover{background:#f3f4f6}
+  button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .export-menu{position:relative}
+  .export-dropdown{
+    position:absolute;right:0;top:calc(100% + 6px);z-index:50;
+    min-width:170px;padding:6px;background:#fff;border:1px solid var(--border);
+    border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.12)
+  }
+  .export-dropdown button{display:block;width:100%;text-align:left;border:0;border-radius:7px;background:#fff;padding:9px 10px}
+  .export-dropdown button:hover{background:#f3f4f6}
+  .autosave{font-size:11px;color:var(--muted);white-space:nowrap}
+  button.danger{color:#fff;background:var(--danger);border-color:var(--danger)}
+  .workspace{
+    display:grid;
+    grid-template-columns:220px 1fr 280px;
+    min-height:0;
+  }
+  .sidebar,.inspector{
+    background:var(--panel);
+    min-height:0;
+    overflow:auto;
+  }
+  .sidebar{border-right:1px solid var(--border);padding:14px}
+  .inspector{border-left:1px solid var(--border);padding:14px}
+  .section-title{
+    font-size:12px;text-transform:uppercase;letter-spacing:.08em;
+    font-weight:800;color:var(--muted);margin:2px 0 10px;
+  }
+  .palette{display:grid;gap:8px}
+  .palette button{
+    width:100%;display:flex;align-items:center;gap:10px;text-align:left;
+    min-height:58px;
+  }
+  .palette button span{font-weight:700}
+  .palette-icon{
+    width:64px;
+    height:40px;
+    flex:0 0 64px;
+    display:block;
+    overflow:hidden;
+  }
+  .palette-icon *{
+    vector-effect:non-scaling-stroke;
+    stroke:#111111;
+    stroke-width:2.5;
+  }
+  .help{
+    margin-top:18px;padding:12px;background:#f8fafc;border:1px solid var(--border);
+    border-radius:10px;font-size:12px;line-height:1.45;color:#475467
+  }
+  .canvas-wrap{position:relative;min-width:0;min-height:0;overflow:hidden;background:#e9edf2}
+  svg#canvas{
+    width:100%;height:100%;display:block;
+    background-color:#fff;
+    background-image:
+      linear-gradient(#eef1f5 1px,transparent 1px),
+      linear-gradient(90deg,#eef1f5 1px,transparent 1px);
+    background-size:20px 20px;
+    cursor:default;
+  }
+  .node .forma{fill:var(--node-fill);stroke:#111;stroke-width:2.5}
+  .node text{
+    font-family:"Times New Roman",Times,serif;
+    fill:#111;
+    text-anchor:middle;
+    dominant-baseline:middle;
+    user-select:none;
+    pointer-events:none;
+  }
+  .node.selected .forma{stroke:#2563eb;stroke-width:4}
+  .connector{
+    stroke:#111;stroke-width:2.5;fill:none;
+    marker-end:url(#arrow);
+    pointer-events:stroke;
+  }
+  .connector.selected{stroke:#2563eb;stroke-width:4}
+  .connector-hit{stroke:transparent;stroke-width:16;fill:none;cursor:pointer;pointer-events:stroke}
+  .connector.temp{stroke:#2563eb;stroke-width:3;stroke-dasharray:7 5;pointer-events:none}
+  .handle{
+    fill:#2563eb;stroke:#fff;stroke-width:2;cursor:crosshair;
+    visibility:hidden;
+  }
+  .node.selected .handle{visibility:visible}
+  .marquee{fill:rgba(37,99,235,.08);stroke:#2563eb;stroke-dasharray:5 4;pointer-events:none}
+  .inspector .empty{color:var(--muted);font-size:13px;line-height:1.5}
+  label{display:block;font-size:12px;color:var(--muted);font-weight:700;margin:12px 0 6px}
+  input[type="text"],input[type="number"],textarea,select{
+    width:100%;border:1px solid var(--border);border-radius:8px;padding:8px 10px;background:#fff;
+  }
+  textarea{min-height:90px;resize:vertical}
+  #pText:focus{outline:2px solid #2563eb;border-color:#2563eb;background:#f8fbff}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .actions{display:flex;gap:8px;margin-top:12px}
+  .actions button{flex:1}
+  .stats{
+    position:absolute;right:12px;bottom:12px;background:#fff;border:1px solid var(--border);
+    border-radius:8px;padding:6px 8px;font-size:12px;color:var(--muted);
+    box-shadow:0 3px 12px rgba(0,0,0,.06)
+  }
+  .status{
+    position:absolute;left:12px;bottom:12px;background:#111;color:#fff;
+    border-radius:8px;padding:7px 10px;font-size:12px;opacity:.9
+  }
+  .tiny{font-size:11px;color:var(--muted);margin-top:5px}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand">Editor de Fluxogramas</div>
+    <button id="newBtn">Novo</button>
+    <button id="saveBtn" class="primary">Salvar</button>
+    <button id="openBtn">Abrir</button>
+    <input id="openFile" type="file" accept=".json,application/json" hidden>
+    <div class="export-menu">
+      <button id="exportBtn">Exportar ▾</button>
+      <div id="exportMenu" class="export-dropdown" hidden>
+        <button id="exportSvgBtn">Exportar SVG</button>
+        <button id="exportPngBtn">Exportar PNG</button>
+      </div>
+    </div>
+    <button id="fitBtn">Centralizar</button>
+    <button id="deleteBtn">Excluir selecionado</button>
+    <span class="autosave" title="O editor mantém um rascunho automaticamente neste navegador">Salvamento automático</span>
+  </header>
+
+  <div class="workspace">
+    <aside class="sidebar">
+      <div class="section-title">Adicionar função</div>
+      <div class="palette">
+        <button data-type="inicio">
+          <svg class="palette-icon" viewBox="0 0 64 40" aria-hidden="true">
+            <rect x="2" y="6" width="60" height="28" rx="14"
+                  fill="#eef1f5" stroke="#111111" stroke-width="2.5"/>
+          </svg>
+          <span>Início / Fim</span>
+        </button>
+
+        <button data-type="entrada">
+          <svg class="palette-icon" viewBox="0 0 299 78" aria-hidden="true">
+            <path d="M0 39
+                     L40 3
+                     C44 0 49 0 54 0
+                     H242
+                     C267 0 284 16 284 39
+                     C284 62 267 78 242 78
+                     H54
+                     C49 78 44 78 40 75
+                     Z"
+                  transform="translate(7.5 0)"
+                  fill="#eef1f5" stroke="#111111" stroke-width="2.5"/>
+          </svg>
+          <span>Exibir na tela</span>
+        </button>
+
+        <button data-type="variavel">
+          <svg class="palette-icon" viewBox="0 0 64 40" aria-hidden="true">
+            <path d="M10 12 L62 4 L62 36 L10 36 Z"
+                  fill="#eef1f5" stroke="#111111" stroke-width="2.5"
+                  stroke-linejoin="miter"/>
+          </svg>
+          <span>Entrada de dados</span>
+        </button>
+
+        <button data-type="processo">
+          <svg class="palette-icon" viewBox="0 0 64 40" aria-hidden="true">
+            <rect x="2" y="6" width="60" height="28"
+                  fill="#eef1f5" stroke="#111111" stroke-width="2.5"/>
+          </svg>
+          <span>Processo</span>
+        </button>
+      </div>
+      <div class="help">
+        <b>Como usar</b><br>
+        Clique em uma função para adicionar ao canvas. Clique em um bloco para editar o texto.
+        Arraste o bloco para mover. Em uma área vazia, arraste o botão esquerdo para navegar. Para conectar, selecione um bloco e arraste a bolinha azul
+        até outro bloco. Clique em uma linha para selecioná-la e pressione <b>Delete</b> para removê-la.
+      </div>
+    </aside>
+
+    <main class="canvas-wrap">
+      <svg id="canvas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900">
+        <defs></defs>
+        <g id="links"></g>
+        <g id="tempLink"></g>
+        <g id="nodes"></g>
+        <rect id="marquee" class="marquee" x="0" y="0" width="0" height="0" visibility="hidden"/>
+      </svg>
+      <div class="status" id="status">Pronto</div>
+      <div class="stats" id="stats">0 blocos · 0 conexões</div>
+    </main>
+
+    <aside class="inspector" id="inspector">
+      <div class="section-title">Propriedades</div>
+      <div id="inspectorContent" class="empty">
+        Selecione um bloco para editar sua função e o texto. Dois cliques no bloco focam o campo de texto.
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>
+(() => {
+  const canvas = document.getElementById('canvas');
+  const nodesLayer = document.getElementById('nodes');
+  const linksLayer = document.getElementById('links');
+  const inspector = document.getElementById('inspectorContent');
+  const statusEl = document.getElementById('status');
+  const statsEl = document.getElementById('stats');
+  const marquee = document.getElementById('marquee');
+
+  const state = {
+    nodes: [],
+    links: [],
+    selectedId: null,
+    nextId: 1,
+    mode: null,
+    drag: null,
+    zoom: 1,
+    panX: 0,
+    panY: 0,
+    viewport: {w:1400,h:900},
+    pan: null,
+    clickTrack: {id:null,time:0,x:0,y:0}
+  };
+
+  const defaults = {
+    inicio:   {w:150,h:58,text:'Inicio',font:25},
+    entrada:  {w:299,h:78,text:'"Digite a informação:"',font:25},
+    variavel: {w:91,h:60,text:'P1',font:27},
+    processo: {w:370,h:65,text:'Processo',font:25}
+  };
+
+  function uid(){ return 'n' + (state.nextId++); }
+
+  function announce(text){
+    statusEl.textContent = text;
+    clearTimeout(announce._t);
+    announce._t = setTimeout(() => statusEl.textContent='Pronto', 1600);
+  }
+
+  function escapeXml(s){
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');
+  }
+
+  function pointFromEvent(ev){
+    const pt = canvas.createSVGPoint();
+    pt.x = ev.clientX; pt.y = ev.clientY;
+    return pt.matrixTransform(canvas.getScreenCTM().inverse());
+  }
+
+  function snap(v){ return Math.round(v/5)*5; }
+
+  function getNode(id){ return state.nodes.find(n => n.id === id); }
+
+  function addNode(type, x=300, y=120){
+    const d = defaults[type];
+    const n = {
+      id: uid(), type, x:snap(x), y:snap(y),
+      w:d.w,h:d.h,text:d.text,font:d.font,
+      manualPosition:false
+    };
+    autoSizeNode(n);
+    state.nodes.push(n);
+    state.selectedId = n.id;
+    render();
+    showInspector();
+    announce('Bloco adicionado');
+  }
+
+  function wrapLines(text, maxChars){
+    const clean = String(text || '').replace(/\r/g,'').trim();
+    if(!clean) return [''];
+
+    // Quebra por palavras, preservando linhas manuais.
+    const paragraphs = clean.split('\n');
+    const lines = [];
+    paragraphs.forEach(paragraph=>{
+      const words = paragraph.split(/\s+/).filter(Boolean);
+      if(!words.length){ lines.push(''); return; }
+      let line = '';
+      words.forEach(word=>{
+        const candidate = line ? line + ' ' + word : word;
+        if(candidate.length > maxChars && line){
+          lines.push(line);
+          line = word;
+        } else {
+          line = candidate;
+        }
+      });
+      if(line) lines.push(line);
+    });
+    return lines.length ? lines : [''];
+  }
+
+  function measureTextWidth(text, font){
+    // Aproximação tipográfica para Times New Roman, mantendo a geometria do SVG.
+    // O desenho da forma é o da referência; somente a escala cresce com o conteúdo.
+    const chars = String(text || '').length;
+    const avg = font * 0.50;
+    return chars * avg;
+  }
+
+  function autoSizeNode(n){
+    const font = n.font || (n.type==='variavel' ? 27 : 25);
+
+    if(n.type==='inicio'){
+      // Exatamente a proporção da referência: 150 × 58, rx=29.
+      n.w = Math.max(150, measureTextWidth(n.text, font) + 36);
+      n.h = 58;
+      n.rx = n.h/2;
+      return;
+    }
+
+    if(n.type==='variavel'){
+      // A referência usa 91 × 60 e a mesma inclinação de 20px.
+      const lines = wrapLines(n.text, 12);
+      const maxW = Math.max(...lines.map(l=>measureTextWidth(l,font)), font);
+      // Mais espaço interno para a Entrada de dados, especialmente na exportação.
+      // A forma mantém a mesma aparência, mas o texto fica mais afastado das bordas.
+      n.w = Math.max(125, maxW + 58);
+      n.h = Math.max(72, lines.length * font * 1.18 + 30);
+      return;
+    }
+
+    if(n.type==='entrada'){
+      const lines = wrapLines(n.text, 25);
+      const maxW = Math.max(...lines.map(l=>measureTextWidth(l,font)), font);
+      // A referência usa 299 × 78; mantém as pontas e a curva, escalando uniformemente.
+      n.w = Math.max(299, maxW + 86);
+      n.h = Math.max(78, lines.length * font * 1.18 + 26);
+      return;
+    }
+
+    // Processo / declaração / cálculo: retângulo da mesma linguagem visual.
+    const lines = wrapLines(n.text, 34);
+    const maxW = Math.max(...lines.map(l=>measureTextWidth(l,font)), font);
+    n.w = Math.max(220, maxW + 46);
+    n.h = Math.max(58, lines.length * font * 1.18 + 22);
+  }
+
+  function shapeMarkup(n){
+    const cx = n.x + n.w/2;
+    const cy = n.y + n.h/2;
+    const common = `class="forma"`;
+
+    if(n.type==='inicio'){
+      return `<rect x="${n.x}" y="${n.y}"
+        width="${n.w}" height="58" rx="29" ${common}/>`;
+    }
+
+    if(n.type==='entrada'){
+      // Forma fiel ao path da referência:
+      // ponta inclinada à esquerda + lado direito com duas curvas simétricas.
+      const x = n.x, y = n.y, w = n.w, h = n.h;
+      const baseW = 299, baseH = 78;
+      const sx = w / baseW;
+      const sy = h / baseH;
+
+      // Coordenadas locais reproduzidas a partir de:
+      // M300 274 C300 269 303 265 308 261 L340 238 ...
+      const X = v => x + (v - 300) * sx;
+      const Y = v => y + (v - 235) * sy;
+
+      return `<path d="
+        M ${X(300)} ${Y(274)}
+        L ${X(340)} ${Y(238)}
+        C ${X(344)} ${Y(235)} ${X(349)} ${Y(235)} ${X(354)} ${Y(235)}
+        L ${X(542)} ${Y(235)}
+        C ${X(567)} ${Y(235)} ${X(584)} ${Y(251)} ${X(584)} ${Y(274)}
+        C ${X(584)} ${Y(297)} ${X(567)} ${Y(313)} ${X(542)} ${Y(313)}
+        L ${X(354)} ${Y(313)}
+        C ${X(349)} ${Y(313)} ${X(344)} ${Y(313)} ${X(340)} ${Y(310)}
+        Z" ${common}/>`;
+    }
+
+    if(n.type==='variavel'){
+      // Forma fiel ao quadrilátero da referência:
+      // M397 353 L487 333 L488 393 L397 393 Z
+      // Adaptada proporcionalmente ao conteúdo.
+      const slant = Math.min(20, n.w * 0.22);
+      return `<path d="
+        M ${n.x+slant} ${n.y+20}
+        L ${n.x+n.w} ${n.y}
+        L ${n.x+n.w+1} ${n.y+n.h}
+        L ${n.x+slant} ${n.y+n.h}
+        Z" ${common}/>`;
+    }
+
+    return `<rect x="${n.x}" y="${n.y}" width="${n.w}" height="${n.h}" ${common}/>`;
+  }
+
+  function textMarkup(n){
+    const lines = wrapLines(n.text, n.type==='entrada' ? 24 : (n.type==='variavel' ? 14 : 34));
+    const lineH = n.font * 1.12;
+    const total = (lines.length - 1) * lineH;
+    const firstY = n.y + n.h/2 - total/2;
+    const klass = n.type==='variavel' ? 'texto variavel' : 'texto principal';
+
+    return `<text x="${n.x+n.w/2}" class="${klass}">
+      ${lines.map((line,i)=>
+        `<tspan x="${n.x+n.w/2}" y="${firstY + i*lineH}">${escapeXml(line)}</tspan>`
+      ).join('')}
+    </text>`;
+  }
+
+  function anchorPoint(n, side){
+    const cx=n.x+n.w/2, cy=n.y+n.h/2;
+    if(side==='top') return {x:cx,y:n.y};
+    if(side==='bottom') return {x:cx,y:n.y+n.h};
+    if(side==='left') return {x:n.x,y:cy};
+    return {x:n.x+n.w,y:cy};
+  }
+
+  function makePath(a,b){
+    const dy=b.y-a.y;
+    const curve=Math.max(40, Math.abs(dy)*0.45);
+    return `M ${a.x} ${a.y} C ${a.x} ${a.y+curve}, ${b.x} ${b.y-curve}, ${b.x} ${b.y}`;
+  }
+
+
+  function renderTempConnection(point){
+    const layer = document.getElementById('tempLink');
+    if(!layer) return;
+    if(state.mode!=='connect' || !state.drag){
+      layer.innerHTML='';
+      return;
+    }
+    const from = getNode(state.drag.startNode);
+    if(!from) { layer.innerHTML=''; return; }
+    const p1 = anchorPoint(from,'bottom');
+    layer.innerHTML = `<path class="connector temp" d="${makePath(p1, point)}"/>`;
+  }
+
+  function render(){
+    linksLayer.innerHTML = state.links.map((l,i)=>{
+      const a=getNode(l.from), b=getNode(l.to);
+      if(!a||!b)return '';
+      const p1=anchorPoint(a,'bottom');
+      const p2=anchorPoint(b,'top');
+      const d=makePath(p1,p2);
+      return `<path data-link="${i}" class="connector-hit" d="${d}"/>
+              <path data-link="${i}" class="connector ${l.selected?'selected':''}" d="${d}"/>`;
+    }).join('');
+
+    nodesLayer.innerHTML = state.nodes.map(n => `
+      <g class="node ${n.id===state.selectedId?'selected':''}" data-id="${n.id}">
+        ${shapeMarkup(n)}
+        ${textMarkup(n)}
+        <circle class="handle" cx="${n.x+n.w/2}" cy="${n.y+n.h}" r="9"/><title>Arraste este ponto até outro bloco para conectar</title>
+      </g>
+    `).join('');
+
+    statsEl.textContent = `${state.nodes.length} blocos · ${state.links.length} conexões`;
+  }
+
+  function showInspector(){
+    const n=getNode(state.selectedId);
+    if(!n){
+      inspector.innerHTML = '<div class="empty">Selecione um bloco para editar sua função e o texto. Dois cliques no bloco focam o campo de texto.</div>';
+      return;
+    }
+    inspector.innerHTML = `
+      <label>Tipo</label>
+      <select id="pType">
+        <option value="inicio"${n.type==='inicio'?' selected':''}>Início / Fim</option>
+        <option value="entrada"${n.type==='entrada'?' selected':''}>Exibir na tela</option>
+        <option value="variavel"${n.type==='variavel'?' selected':''}>Entrada de dados</option>
+        <option value="processo"${n.type==='processo'?' selected':''}>Processo</option>
+              </select>
+
+      <label>Texto da função</label>
+      <textarea id="pText">${escapeXml(n.text)}</textarea>
+
+      <div class="actions">
+        <button id="duplicateBtn">Duplicar</button>
+        <button id="removeBtn" class="danger">Excluir</button>
+      </div>
+      <div class="tiny">Dê dois cliques no bloco para editar o texto. O tamanho da forma é calculado automaticamente.</div>
+    `;
+
+    const typeField = document.getElementById('pType');
+    const textField = document.getElementById('pText');
+
+    typeField.addEventListener('change', ()=>{
+      const cur=getNode(state.selectedId);
+      if(!cur)return;
+      cur.type = typeField.value;
+      autoSizeNode(cur);
+      render();
+      showInspector();
+      setTimeout(()=>{
+        const field=document.getElementById('pText');
+        if(field){ field.focus(); field.setSelectionRange(field.value.length, field.value.length); }
+      },0);
+    });
+
+    textField.addEventListener('input', ()=>{
+      const cur=getNode(state.selectedId);
+      if(!cur)return;
+      cur.text = textField.value;
+      autoSizeNode(cur);
+      render();
+      // NÃO reconstruir o inspector aqui: isso fazia o textarea perder foco a cada letra.
+    });
+
+    document.getElementById('removeBtn').onclick=removeSelected;
+    document.getElementById('duplicateBtn').onclick=()=>{
+      const original=getNode(state.selectedId);
+      if(!original)return;
+      const copy={...original,id:uid(),x:original.x+40,y:original.y+40};
+      autoSizeNode(copy);
+      state.nodes.push(copy); state.selectedId=copy.id; render(); showInspector();
+    };
+  }
+
+  function removeSelected(){
+    if(state.links.some(l=>l.selected)){
+      const count=state.links.filter(l=>l.selected).length;
+      state.links=state.links.filter(l=>!l.selected);
+      state.selectedId=null;
+      render();
+      showInspector();
+      announce(count===1 ? 'Linha removida' : `${count} linhas removidas`);
+      return;
+    }
+
+    if(!state.selectedId)return;
+    const id=state.selectedId;
+    state.nodes=state.nodes.filter(n=>n.id!==id);
+    state.links=state.links.filter(l=>l.from!==id && l.to!==id);
+    state.selectedId=null;
+    render();
+    showInspector();
+    announce('Bloco removido');
+  }
+
+
+  function focusNodeText(id){
+    state.selectedId = id;
+    state.links.forEach(l=>l.selected=false);
+    render();
+    showInspector();
+
+    requestAnimationFrame(()=>{
+      const field = document.getElementById('pText');
+      if(field){
+        field.focus({preventScroll:true});
+        field.select();
+      }
+    });
+  }
+
+  function selectNode(id){
+    state.selectedId=id;
+    state.links.forEach(l=>l.selected=false);
+    render(); showInspector();
+  }
+
+  canvas.addEventListener('pointerdown', e=>{
+    const nodeEl=e.target.closest('.node');
+    const handle=e.target.closest('.handle');
+    const linkEl=e.target.closest('.connector, .connector-hit');
+
+    if(linkEl){
+      const index=Number(linkEl.dataset.link);
+      if(Number.isInteger(index) && state.links[index]){
+        state.selectedId=null;
+        state.links.forEach((l,i)=>l.selected=(i===index));
+        state.mode=null;
+        state.drag=null;
+        render();
+        showInspector();
+        announce('Linha selecionada — pressione Delete para remover');
+      }
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+
+    if(nodeEl){
+      const id=nodeEl.dataset.id;
+      const n=getNode(id);
+      if(handle){
+        // O handle inicia uma conexão e não precisa reconstruir o DOM antes do arrasto.
+        state.selectedId=id;
+        state.mode='connect';
+        state.drag={startNode:id};
+        render();
+        showInspector();
+      }else{
+        selectNode(id);
+        state.mode='move';
+        const p=pointFromEvent(e);
+        state.drag={id,dx:p.x-n.x,dy:p.y-n.y};
+      }
+      canvas.setPointerCapture(e.pointerId);
+      e.preventDefault();
+      return;
+    }
+
+    if(e.target.closest('.connector')) return;
+
+    state.selectedId=null;
+    render(); showInspector();
+  });
+
+  canvas.addEventListener('pointermove', e=>{
+    if(!state.drag)return;
+    const p=pointFromEvent(e);
+
+    if(state.mode==='move'){
+      const n=getNode(state.drag.id);
+      if(!n)return;
+      n.x=snap(p.x-state.drag.dx);
+      n.y=snap(p.y-state.drag.dy);
+      render();
+    }
+    if(state.mode==='connect'){
+      renderTempConnection(p);
+    }
+  });
+
+  canvas.addEventListener('pointerup', e=>{
+    if(!state.drag){return}
+
+    const dragMode = state.mode;
+    const dragId = state.drag.id || state.drag.startNode;
+
+    if(dragMode==='connect'){
+      // O elemento sob o ponteiro pode não ser e.target, porque o SVG
+      // é redesenhado enquanto a conexão é arrastada. Fazemos hit-test
+      // pela posição real do mouse.
+      const under = document.elementsFromPoint(e.clientX, e.clientY)
+        .map(el => el.closest?.('.node'))
+        .find(Boolean);
+
+      const from = state.drag.startNode;
+      const to = under?.dataset?.id;
+
+      if(to && from !== to && !state.links.some(l=>l.from===from&&l.to===to)){
+        state.links.push({from,to});
+        announce('Conexão criada');
+      } else if(!to){
+        announce('Solte sobre outro bloco para conectar');
+      }
+    }
+
+    // Detecta duplo clique independentemente do DOM ter sido redesenhado.
+    if(dragMode==='move' && dragId){
+      const now = performance.now();
+      const last = state.clickTrack;
+      const elapsed = now-last.time;
+      const dx = Math.abs(e.clientX-last.x);
+      const dy = Math.abs(e.clientY-last.y);
+
+      if(last.id===dragId && elapsed < 400 && dx < 8 && dy < 8){
+        focusNodeText(dragId);
+        state.clickTrack = {id:null,time:0,x:0,y:0};
+      }else{
+        state.clickTrack = {id:dragId,time:now,x:e.clientX,y:e.clientY};
+      }
+    }
+
+    state.mode=null;
+    state.drag=null;
+    render();
+    renderTempConnection(null);
+  });
+
+
+
+  // Navegação pelo quadro:
+  // botão esquerdo arrasta o canvas quando o clique é feito em área vazia.
+  // Em cima de um bloco, o botão esquerdo continua movendo o bloco.
+  canvas.addEventListener('pointerdown', e=>{
+    const onNode = !!e.target.closest('.node');
+    const onLink = !!e.target.closest('.connector, .connector-hit');
+
+    // Apenas área vazia inicia pan.
+    if(e.button === 0 && !onNode && !onLink){
+      state.pan = {
+        startClientX: e.clientX,
+        startClientY: e.clientY,
+        startViewBox: canvas.getAttribute('viewBox').split(/\s+/).map(Number)
+      };
+      canvas.setPointerCapture(e.pointerId);
+      canvas.style.cursor = 'grabbing';
+      e.preventDefault();
+      return;
+    }
+
+    // Botão do meio continua disponível como alternativa para pan.
+    if(e.button === 1){
+      state.pan = {
+        startClientX: e.clientX,
+        startClientY: e.clientY,
+        startViewBox: canvas.getAttribute('viewBox').split(/\s+/).map(Number)
+      };
+      canvas.setPointerCapture(e.pointerId);
+      canvas.style.cursor = 'grabbing';
+      e.preventDefault();
+    }
+  }, true);
+
+  canvas.addEventListener('pointermove', e=>{
+    if(!state.pan) return;
+
+    const vb = state.pan.startViewBox;
+    const rect = canvas.getBoundingClientRect();
+    const dx = (e.clientX - state.pan.startClientX) * vb[2] / rect.width;
+    const dy = (e.clientY - state.pan.startClientY) * vb[3] / rect.height;
+
+    canvas.setAttribute('viewBox', `${vb[0]-dx} ${vb[1]-dy} ${vb[2]} ${vb[3]}`);
+  }, true);
+
+  function stopPan(e){
+    if(!state.pan) return;
+    state.pan = null;
+    canvas.releasePointerCapture?.(e.pointerId);
+    canvas.style.cursor = '';
+  }
+
+  canvas.addEventListener('pointerup', stopPan, true);
+  canvas.addEventListener('pointercancel', stopPan, true);
+
+  // Zoom com a roda do mouse, centrado no ponto sob o cursor.
+  canvas.addEventListener('wheel', e=>{
+    e.preventDefault();
+
+    const p = pointFromEvent(e);
+    const vb = canvas.viewBox.baseVal;
+    const factor = e.deltaY > 0 ? 1.10 : 0.90;
+
+    const newW = Math.min(4000, Math.max(250, vb.width * factor));
+    const newH = Math.min(3000, Math.max(170, vb.height * factor));
+
+    const rx = (p.x - vb.x) / vb.width;
+    const ry = (p.y - vb.y) / vb.height;
+
+    const newX = p.x - rx * newW;
+    const newY = p.y - ry * newH;
+
+    canvas.setAttribute('viewBox', `${newX} ${newY} ${newW} ${newH}`);
+  }, {passive:false});
+
+  // Duplo clique robusto: identifica o bloco pela posição do mouse e
+  // foca diretamente o campo de texto, mesmo que o SVG tenha sido redesenhado.
+  canvas.addEventListener('dblclick', e=>{
+    const under = document.elementsFromPoint(e.clientX, e.clientY)
+      .map(el=>el.closest?.('.node'))
+      .find(Boolean);
+
+    if(!under) return;
+
+    focusNodeText(under.dataset.id);
+    e.preventDefault();
+    e.stopPropagation();
+  }, true);
+
+  document.addEventListener('keydown', e=>{
+    if(e.key==='Delete' || e.key==='Backspace'){
+      const active=document.activeElement;
+      if(active && ['INPUT','TEXTAREA','SELECT'].includes(active.tagName))return;
+      removeSelected();
+    }
+    if(e.key==='Escape'){
+      state.mode=null;state.drag=null;
+    }
+  });
+
+  document.querySelectorAll('.palette button').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const rect=canvas.getBoundingClientRect();
+      const x=canvas.viewBox.baseVal.x + canvas.viewBox.baseVal.width/2 - defaults[btn.dataset.type].w/2;
+      const y=canvas.viewBox.baseVal.y + canvas.viewBox.baseVal.height/2 - defaults[btn.dataset.type].h/2;
+      addNode(btn.dataset.type,x,y);
+    });
+  });
+
+  document.getElementById('newBtn').onclick=()=>{
+    if(!confirm('Criar um novo fluxograma? O rascunho atual será substituído.')) return;
+    state.nodes=[];state.links=[];state.selectedId=null;state.nextId=1;
+    localStorage.removeItem(AUTOSAVE_KEY);
+    render();showInspector();announce('Canvas limpo');
+  };
+
+  document.getElementById('deleteBtn').onclick=removeSelected;
+
+  document.getElementById('fitBtn').onclick=()=>{
+    if(!state.nodes.length){
+      canvas.setAttribute('viewBox','0 0 1400 900');
+      return;
+    }
+    const pad = 100;
+    const minX = Math.min(...state.nodes.map(n=>n.x)) - pad;
+    const minY = Math.min(...state.nodes.map(n=>n.y)) - pad;
+    const maxX = Math.max(...state.nodes.map(n=>n.x+n.w)) + pad;
+    const maxY = Math.max(...state.nodes.map(n=>n.y+n.h)) + pad;
+    canvas.setAttribute('viewBox', `${minX} ${minY} ${Math.max(300,maxX-minX)} ${Math.max(200,maxY-minY)}`);
+    render();
+  };
+
+  const AUTOSAVE_KEY = 'editor_fluxograma_svg_autosave_v1';
+
+  function getProjectData(){
+    return {
+      version: 1,
+      app: 'Editor de Fluxogramas',
+      savedAt: new Date().toISOString(),
+      nodes: state.nodes.map(n => ({...n})),
+      links: state.links.map(l => ({from:l.from, to:l.to})),
+      nextId: state.nextId
+    };
+  }
+
+  function applyProjectData(data){
+    if(!data || !Array.isArray(data.nodes) || !Array.isArray(data.links)){
+      throw new Error('Arquivo de projeto inválido.');
+    }
+
+    // Normaliza os IDs para string. Isso é importante porque o DOM entrega
+    // data-id/data-link como texto; projetos JSON antigos podem ter IDs numéricos.
+    const nodes = data.nodes.map(n => ({
+      ...n,
+      id:String(n.id),
+      x:Number(n.x)||0, y:Number(n.y)||0,
+      w:Number(n.w)||100, h:Number(n.h)||60,
+      font:Number(n.font)||25, text:String(n.text ?? ''),
+      manualPosition:!!n.manualPosition
+    }));
+
+    const hasNode = id => nodes.some(n => n.id === String(id));
+    state.nodes = nodes;
+    state.links = data.links
+      .filter(l => l && hasNode(l.from) && hasNode(l.to))
+      .map(l => ({from:String(l.from), to:String(l.to), selected:false}));
+
+    const maxId = state.nodes.reduce((max,n) => {
+      const m = String(n.id).match(/^n(\d+)$/);
+      return Math.max(max, m ? Number(m[1]) : 0);
+    }, 0);
+
+    state.nextId = Math.max(Number(data.nextId)||1, maxId+1);
+    state.selectedId = null;
+    state.mode = null;
+    state.drag = null;
+    state.nodes.forEach(autoSizeNode);
+    render();
+    showInspector();
+  }
+
+  function saveProjectToBrowser(){
+    try{
+      localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(getProjectData()));
+      return true;
+    }catch(err){
+      console.warn('Falha no salvamento automático:', err);
+      return false;
+    }
+  }
+
+  function saveProjectFile(){
+    saveProjectToBrowser();
+    const blob = new Blob([JSON.stringify(getProjectData(), null, 2)],
+      {type:'application/json;charset=utf-8'});
+    downloadBlob(blob, 'fluxograma.json');
+    announce('Projeto salvo');
+  }
+
+  function openProjectFile(file){
+    if(!file)return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try{
+        applyProjectData(JSON.parse(reader.result));
+        saveProjectToBrowser();
+        announce('Projeto aberto');
+      }catch(err){
+        console.error(err);
+        announce('Não foi possível abrir o projeto');
+        alert('O arquivo selecionado não é um projeto válido do editor.');
+      }finally{
+        document.getElementById('openFile').value = '';
+      }
+    };
+    reader.onerror = () => {
+      announce('Erro ao ler o arquivo');
+      document.getElementById('openFile').value = '';
+    };
+    reader.readAsText(file);
+  }
+
+  function getExportBounds(){
+    if(!state.nodes.length) return {x:0,y:0,w:1400,h:900};
+    const pad=50;
+    const minX=Math.min(...state.nodes.map(n=>n.x));
+    const minY=Math.min(...state.nodes.map(n=>n.y));
+    const maxX=Math.max(...state.nodes.map(n=>n.x+n.w));
+    const maxY=Math.max(...state.nodes.map(n=>n.y+n.h));
+    return {
+      x:minX-pad, y:minY-pad,
+      w:Math.max(100,maxX-minX+pad*2),
+      h:Math.max(100,maxY-minY+pad*2)
+    };
+  }
+
+  function downloadBlob(blob, filename){
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url; a.download=filename;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+  }
+
+  function exportSvgFile(){
+    const svg=buildSvgExport();
+    downloadBlob(new Blob([svg],{type:'image/svg+xml;charset=utf-8'}),'fluxograma.svg');
+    announce('SVG exportado');
+  }
+
+  function exportPngFile(){
+    const svg=buildSvgExport();
+    const b=getExportBounds();
+    const scale=2, W=Math.ceil(b.w*scale), H=Math.ceil(b.h*scale);
+    const url=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml;charset=utf-8'}));
+    const img=new Image();
+
+    img.onload=()=>{
+      const c=document.createElement('canvas');
+      c.width=W; c.height=H;
+      const ctx=c.getContext('2d');
+      ctx.fillStyle='#fff';
+      ctx.fillRect(0,0,W,H);
+      ctx.drawImage(img,0,0,W,H);
+      URL.revokeObjectURL(url);
+      c.toBlob(blob=>{
+        if(!blob){announce('Não foi possível exportar PNG');return;}
+        downloadBlob(blob,'fluxograma.png');
+        announce('PNG exportado');
+      },'image/png');
+    };
+    img.onerror=()=>{
+      URL.revokeObjectURL(url);
+      announce('Não foi possível exportar PNG');
+    };
+    img.src=url;
+  }
+
+  function restoreAutosave(){
+    try{
+      const raw=localStorage.getItem(AUTOSAVE_KEY);
+      if(!raw)return false;
+      const data=JSON.parse(raw);
+      if(!data || !Array.isArray(data.nodes) || !Array.isArray(data.links)) return false;
+      applyProjectData(data);
+      announce('Rascunho recuperado automaticamente');
+      return true;
+    }catch(err){
+      console.warn('Falha ao recuperar rascunho:',err);
+      return false;
+    }
+  }
+
+  function buildSvgExport(){
+    const b=getExportBounds(), W=Math.ceil(b.w), H=Math.ceil(b.h);
+    let out=`<?xml version="1.0" encoding="UTF-8"?>\n`;
+    out+=`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="${b.x} ${b.y} ${W} ${H}">\n`;
+    out+=`  <defs><style>\n`;
+    out+=`    .forma{fill:#eef1f5;stroke:#111111;stroke-width:2.5;}\n`;
+    out+=`    .texto{font-family:"Times New Roman",Times,serif;fill:#111111;text-anchor:middle;dominant-baseline:middle;}\n`;
+    out+=`    .linha{stroke:#111111;stroke-width:2.5;fill:none;}\n`;
+    out+=`  </style></defs>\n`;
+
+    state.links.forEach(l=>{
+      const a=getNode(l.from),bb=getNode(l.to);
+      if(!a||!bb)return;
+      out+=`  <path d="${makePath(anchorPoint(a,'bottom'),anchorPoint(bb,'top'))}" class="linha"/>\n`;
+    });
+
+    state.nodes.forEach(n=>{
+      const lines=wrapLines(n.text,n.type==='entrada'?24:(n.type==='variavel'?14:34));
+      const lineH=n.font*1.12;
+      const total=(lines.length-1)*lineH;
+      const firstY=n.y+n.h/2-total/2;
+      out+=`  <g id="${escapeXml(n.id)}">\n`;
+      out+=`    ${shapeMarkup(n)}\n`;
+      out+=`    <text class="texto" style="font-size:${n.font}px">`;
+      out+=lines.map((line,i)=>`<tspan x="${n.x+n.w/2}" y="${firstY+i*lineH}">${escapeXml(line)}</tspan>`).join('');
+      out+=`</text>\n  </g>\n`;
+    });
+
+    out+=`</svg>`;
+    return out;
+  }
+
+
+  const openFileEl=document.getElementById('openFile');
+  const exportMenu=document.getElementById('exportMenu');
+
+  document.getElementById('saveBtn').onclick=saveProjectFile;
+  document.getElementById('openBtn').onclick=()=>openFileEl.click();
+  openFileEl.addEventListener('change',e=>openProjectFile(e.target.files?.[0]));
+
+  document.getElementById('exportBtn').onclick=e=>{
+    e.stopPropagation();
+    exportMenu.hidden=!exportMenu.hidden;
+  };
+  document.getElementById('exportSvgBtn').onclick=()=>{
+    exportMenu.hidden=true; exportSvgFile();
+  };
+  document.getElementById('exportPngBtn').onclick=()=>{
+    exportMenu.hidden=true; exportPngFile();
+  };
+  document.addEventListener('click',e=>{
+    if(!e.target.closest('.export-menu')) exportMenu.hidden=true;
+  });
+
+  let autosaveTimer=null;
+  function scheduleAutosave(){
+    clearTimeout(autosaveTimer);
+    autosaveTimer=setTimeout(saveProjectToBrowser,350);
+  }
+
+  const originalRender=render;
+  render=function(){
+    originalRender();
+    scheduleAutosave();
+  };
+
+  // Programa base: exatamente 3 blocos
+  state.nodes = [];
+  state.links = [];
+  state.selectedId = null;
+  state.nextId = 1;
+
+  const recovered = restoreAutosave();
+
+  function addBaseNode(type, x, y, text){
+    addNode(type, x, y);
+    const n = getNode(state.selectedId);
+    n.text = text;
+    autoSizeNode(n);
+    return n.id;
+  }
+
+  if(!recovered){
+  const helloStart = addBaseNode('inicio', 625, 90, 'Início');
+  const helloMessage = addBaseNode('entrada', 505, 250, '"Hello, World!"');
+  const helloEnd = addBaseNode('inicio', 625, 430, 'Fim');
+
+  state.links.push(
+    {from: helloStart, to: helloMessage},
+    {from: helloMessage, to: helloEnd}
+  );
+
+  state.selectedId = null;
+  }
+
+  state.nodes.forEach(autoSizeNode);
+  render();
+  showInspector();
+})();
+</script>
+</body>
+</html>
+
+<script>
+(() => {
+  const canvas = document.getElementById('canvas');
+  canvas.addEventListener('contextmenu', e => {
+    e.preventDefault();
+  });
+})();
+</script>
