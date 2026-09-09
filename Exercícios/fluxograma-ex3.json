@@ -1,0 +1,113 @@
+{
+  "version": 1,
+  "app": "Editor de Fluxogramas",
+  "savedAt": "2026-09-09T20:43:26.901Z",
+  "nodes": [
+    {
+      "id": "1",
+      "type": "inicio",
+      "x": 625,
+      "y": 60,
+      "w": 150,
+      "h": 58,
+      "text": "Início",
+      "font": 25,
+      "manualPosition": true,
+      "rx": 29
+    },
+    {
+      "id": "2",
+      "type": "entrada",
+      "x": 500,
+      "y": 245,
+      "w": 336,
+      "h": 85,
+      "text": "\"Digite o valor da diagonal: \"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "3",
+      "type": "processo",
+      "x": 495,
+      "y": 470,
+      "w": 296,
+      "h": 58,
+      "text": "área = (diagonal * diagonal) / 2",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "4",
+      "type": "entrada",
+      "x": 500,
+      "y": 590,
+      "w": 398.5,
+      "h": 85,
+      "text": "\"A área do quadrado é \", área",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "5",
+      "type": "inicio",
+      "x": 625,
+      "y": 715,
+      "w": 150,
+      "h": 58,
+      "text": "Fim",
+      "font": 25,
+      "manualPosition": true,
+      "rx": 29
+    },
+    {
+      "id": "n1",
+      "type": "processo",
+      "x": 565,
+      "y": 155,
+      "w": 271,
+      "h": 58,
+      "text": "diagonal, área",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n2",
+      "type": "variavel",
+      "x": 700,
+      "y": 360,
+      "w": 139,
+      "h": 72,
+      "text": "diagonal",
+      "font": 27,
+      "manualPosition": false
+    }
+  ],
+  "links": [
+    {
+      "from": "3",
+      "to": "4"
+    },
+    {
+      "from": "4",
+      "to": "5"
+    },
+    {
+      "from": "1",
+      "to": "n1"
+    },
+    {
+      "from": "2",
+      "to": "n2"
+    },
+    {
+      "from": "n2",
+      "to": "3"
+    },
+    {
+      "from": "n1",
+      "to": "2"
+    }
+  ],
+  "nextId": 3
+}
