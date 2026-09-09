@@ -56,7 +56,7 @@ O projeto não necessita de instalação de dependências.
 Basta clonar o repositório:
 
 ```bash
-git clone https://github.com/SEU-USUARIO/Editor-de-Fluxogramas.git
+git clone https://github.com/lnyzz/Editor-de-Fluxogramas.git
 ```
 
 Depois, abra o arquivo `index.html` no navegador.
