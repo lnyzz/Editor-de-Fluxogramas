@@ -18,6 +18,8 @@ Os fluxogramas resolvidos estão disponíveis em **PNG** na pasta:
 
 Basta acessar a pasta e abrir a imagem do exercício que deseja visualizar.
 
+OBS: Qualquer erro encontrado na minha resolução peço que me avise.
+
 ### 🛠️ Quer utilizar o Editor de Fluxogramas?
 
 Você pode utilizar a ferramenta diretamente pelo navegador, sem precisar instalar nada:
