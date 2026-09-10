@@ -22,7 +22,7 @@ OBS: Qualquer erro encontrado na minha resolução peço que me avise.
 
 ### 🛠️ Quer utilizar o Editor de Fluxogramas?
 
-Você pode utilizar a ferramenta diretamente pelo navegador (Apenas PC), sem precisar instalar nada:
+Você pode utilizar a ferramenta diretamente pelo navegador, sem precisar instalar nada:
 
 👉 **[Acessar o Editor de Fluxogramas](https://editor-fluxogramas.free.nf/)**
 
