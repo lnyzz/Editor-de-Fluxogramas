@@ -4,7 +4,7 @@ Editor visual de fluxogramas desenvolvido em **HTML, CSS e JavaScript**, utiliza
 
 O projeto permite criar, editar, organizar, salvar e executar fluxogramas de forma simples e visual, sendo especialmente voltado para os exercícios de **Lógica de Programação**.
 
-<img width="1900" height="936" alt="image" src="https://github.com/user-attachments/assets/a21ba72a-67a4-4040-9a17-9fa01879087a" />
+<img width="1900" height="934" alt="image" src="https://github.com/user-attachments/assets/9051b876-0735-42c8-8a83-1d1ca2aa56fb" />
 
 ---
 
@@ -85,6 +85,7 @@ Exercícios/
 O fluxograma será carregado diretamente no editor.
 
 ---
+<img width="1896" height="976" alt="image" src="https://github.com/user-attachments/assets/16d61c42-e3b6-43b7-b95c-25ba87b6ae54" />
 
 ## ✨ Funcionalidades
 
