@@ -39,6 +39,8 @@ Ou execute o projeto localmente.
 * Exportação para **SVG e PNG**
 * Suporte a **celulares e tablets**
 * **Interpretador** para executar e testar o fluxograma
+* **Depurador** para acompanhar a execução passo a passo
+* Controle do **delay de execução** entre as instruções
 
 ### ▶️ Interpretador
 
@@ -49,6 +51,14 @@ Ele também identifica erros, como variáveis não declaradas e problemas na est
 https://github.com/user-attachments/assets/9f08119d-3cd4-45ef-9eb1-de2c63798f20
 
 O console fica na lateral e pode ser **redimensionado** para aumentar ou diminuir seu espaço.
+
+### 🐞 Depurador
+
+O **Depurar** permite acompanhar a execução do fluxograma de forma controlada, facilitando a visualização do que acontece em cada instrução.
+
+Durante a depuração, o bloco que está sendo executado é destacado e o botão **Próximo** permite avançar para a próxima instrução.
+
+O **delay de execução** define o intervalo entre as instruções executadas automaticamente. O valor padrão é de **500 ms** e pode ser ajustado nas propriedades do editor.
 
 ---
 
@@ -118,4 +128,4 @@ Depois, abra o arquivo `index.html` no navegador.
 
 ## 🎯 Objetivo
 
-Facilitar a **criação, visualização e execução de fluxogramas** para os estudos de **Lógica de Programação**.
+Facilitar a **criação, visualização, execução e depuração de fluxogramas** para os estudos de **Lógica de Programação**.
