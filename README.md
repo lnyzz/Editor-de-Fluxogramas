@@ -16,7 +16,7 @@ Os fluxogramas resolvidos estão disponíveis em **PNG** na pasta:
 
 📁 [`Exercícios`](./Exercícios)
 
-Basta acessar a pasta e abrir a imagem do exercício que deseja visualizar.
+Basta acessar a pasta da lista desejada e abrir a imagem do exercício que deseja visualizar.
 
 **OBS: Qualquer erro encontrado na minha resolução peço que me avise.**
 
