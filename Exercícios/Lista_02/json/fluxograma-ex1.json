@@ -1,0 +1,201 @@
+{
+  "version": 1,
+  "app": "Editor de Fluxogramas",
+  "savedAt": "2026-09-17T01:50:54.965Z",
+  "nodes": [
+    {
+      "id": "n1",
+      "type": "inicio",
+      "x": 630,
+      "y": -320,
+      "w": 150,
+      "h": 58,
+      "text": "Início",
+      "font": 25,
+      "manualPosition": false,
+      "rx": 29
+    },
+    {
+      "id": "n2",
+      "type": "entrada",
+      "x": 335,
+      "y": 370,
+      "w": 386,
+      "h": 78,
+      "text": "\"O maior número é o \", B",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n3",
+      "type": "inicio",
+      "x": 630,
+      "y": 555,
+      "w": 150,
+      "h": 58,
+      "text": "Fim",
+      "font": 25,
+      "manualPosition": false,
+      "rx": 29
+    },
+    {
+      "id": "n4",
+      "type": "condicional",
+      "x": 630,
+      "y": 275,
+      "w": 190,
+      "h": 120,
+      "text": "A > B",
+      "font": 25,
+      "manualPosition": false,
+      "leftLabel": "",
+      "rightLabel": ""
+    },
+    {
+      "id": "n5",
+      "type": "entrada",
+      "x": 735,
+      "y": 365,
+      "w": 386,
+      "h": 78,
+      "text": "\"O maior número é o \", A",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n6",
+      "type": "conector",
+      "x": 685,
+      "y": 480,
+      "w": 40,
+      "h": 40,
+      "text": "",
+      "font": 20,
+      "manualPosition": false
+    },
+    {
+      "id": "n8",
+      "type": "processo",
+      "x": 595,
+      "y": -220,
+      "w": 220,
+      "h": 58,
+      "text": "A, B",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n9",
+      "type": "entrada",
+      "x": 540,
+      "y": -120,
+      "w": 336,
+      "h": 78,
+      "text": "\"Digite um número: \"",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n10",
+      "type": "variavel",
+      "x": 645,
+      "y": -15,
+      "w": 125,
+      "h": 72,
+      "text": "A",
+      "font": 27,
+      "manualPosition": false
+    },
+    {
+      "id": "n13",
+      "type": "entrada",
+      "x": 520,
+      "y": 80,
+      "w": 373.5,
+      "h": 78,
+      "text": "\"Digite outro número: \"",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n14",
+      "type": "variavel",
+      "x": 720,
+      "y": 175,
+      "w": 125,
+      "h": 72,
+      "text": "B",
+      "font": 27,
+      "manualPosition": false
+    }
+  ],
+  "links": [
+    {
+      "from": "n4",
+      "to": "n2",
+      "fromSide": "left",
+      "toSide": "top"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n2",
+      "to": "n6",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "n5",
+      "to": "n6",
+      "fromSide": "bottom",
+      "toSide": "right"
+    },
+    {
+      "from": "n6",
+      "to": "n3",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n1",
+      "to": "n8",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n8",
+      "to": "n9",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n9",
+      "to": "n10",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n10",
+      "to": "n13",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n13",
+      "to": "n14",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n14",
+      "to": "n4",
+      "fromSide": "bottom",
+      "toSide": "top"
+    }
+  ],
+  "nextId": 15
+}

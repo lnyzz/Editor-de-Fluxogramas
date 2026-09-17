@@ -119,6 +119,14 @@
     visibility:hidden;
   }
   .node.selected .handle{visibility:visible}
+  /* No Conector, as entradas laterais não precisam ficar visíveis.
+     A saída inferior aparece somente quando o Conector é selecionado. */
+  .connector-input-handle{visibility:hidden !important;pointer-events:none}
+  .connector-output-handle{visibility:hidden !important}
+  .node.selected .connector-output-handle{visibility:visible !important}
+  .conditional-label{font-family:"Times New Roman",Times,serif;font-size:20px;fill:#111;pointer-events:none;user-select:none}
+  .connector-junction{fill:var(--node-fill);stroke:#111;stroke-width:2.5}
+  .node.selected .connector-junction{stroke:#2563eb;stroke-width:4}
   .marquee{fill:rgba(37,99,235,.08);stroke:#2563eb;stroke-dasharray:5 4;pointer-events:none}
   .inspector .empty{color:var(--muted);font-size:13px;line-height:1.5}
   label{display:block;font-size:12px;color:var(--muted);font-weight:700;margin:12px 0 6px}
@@ -140,6 +148,36 @@
     border-radius:8px;padding:7px 10px;font-size:12px;opacity:.9
   }
   .tiny{font-size:11px;color:var(--muted);margin-top:5px}
+
+
+  .run-btn{font-weight:700}
+  .run-btn.running{background:#f3f4f6;color:#111;border-color:#d7dce2}
+  .run-overlay{position:fixed;inset:0;z-index:1000;background:rgba(15,23,42,.45);display:flex;align-items:center;justify-content:center;padding:20px}
+  .run-overlay[hidden]{display:none}
+  .run-panel{width:min(620px,100%);max-height:min(760px,calc(100vh - 40px));display:flex;flex-direction:column;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.22);overflow:hidden}
+  .run-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border)}
+  .run-state{font-size:12px;color:var(--muted);margin-top:3px}
+  .run-output{min-height:220px;max-height:420px;overflow:auto;padding:14px 16px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:13px;line-height:1.55;background:#f8fafc;white-space:pre-wrap;word-break:break-word}
+  .run-line{margin:0 0 8px}
+  .run-line.program{color:#111827;background:#ffffff;border-left:3px solid #d1d5db;padding:6px 9px;border-radius:6px}
+  .run-line.input{color:#2563eb}
+  .run-line.interpreter{color:#667085;background:#f1f3f6;border-left:3px solid #d5d9df;padding:6px 9px;border-radius:6px}
+  .run-line.error{color:#b91c1c}
+  .run-line.success{color:#166534}
+  .run-input-area{padding:12px 16px;border-top:1px solid var(--border);background:#fff}
+  .run-input-row{display:flex;gap:8px}
+  .run-input-row input{flex:1;min-width:0}
+  .run-footer{display:flex;justify-content:flex-end;gap:8px;padding:12px 16px;border-top:1px solid var(--border)}
+  .run-close{padding:7px 10px}
+  .node.executing .forma{stroke:#f59e0b;stroke-width:5}
+  .node.executing .connector-junction{stroke:#f59e0b;stroke-width:5}
+  @media (max-width:800px){
+    .run-overlay{padding:10px;align-items:flex-end}
+    .run-panel{max-height:82vh;border-radius:14px 14px 0 0}
+    .run-output{min-height:180px;max-height:42vh}
+    .run-input-row{align-items:stretch}
+    .run-input-row input,.run-input-row button{min-height:44px}
+  }
 
   /* Ajustes para telas pequenas e dispositivos touch */
   #canvas{
@@ -278,9 +316,10 @@
 <div class="app">
   <header>
     <div class="brand">Editor de Fluxogramas</div>
-    <button id="newBtn">Novo</button>
-    <button id="saveBtn" class="primary">Salvar</button>
     <button id="openBtn">Abrir</button>
+    <button id="saveBtn" class="primary">Salvar</button>
+    <button id="newBtn">Novo</button>
+    <button id="runBtn" class="run-btn">▶ Executar</button>
     <input id="openFile" type="file" accept=".json,application/json" hidden>
     <div class="export-menu">
       <button id="exportBtn">Exportar ▾</button>
@@ -339,12 +378,26 @@
           </svg>
           <span>Processo</span>
         </button>
+
+        <button data-type="condicional">
+          <svg class="palette-icon" viewBox="0 0 64 40" aria-hidden="true">
+            <path d="M32 3 L60 20 L32 37 L4 20 Z" fill="#eef1f5" stroke="#111111" stroke-width="2.5"/>
+          </svg>
+          <span>Condicional</span>
+        </button>
+
+        <button data-type="conector">
+          <svg class="palette-icon" viewBox="0 0 64 40" aria-hidden="true">
+            <circle cx="32" cy="20" r="12" fill="#eef1f5" stroke="#111111" stroke-width="2.5"/>
+          </svg>
+          <span>Conector</span>
+        </button>
       </div>
       <div class="help">
         <b>Como usar</b><br>
         Clique em uma função para adicionar ao canvas. Clique em um bloco para editar o texto.
         Arraste o bloco para mover. Em uma área vazia, arraste o botão esquerdo para navegar. Para conectar, selecione um bloco e arraste a bolinha azul
-        até outro bloco. Clique em uma linha para selecioná-la e pressione <b>Delete</b> para removê-la.
+        até outro bloco. No condicional, use as bolinhas da esquerda e da direita para os dois caminhos. Os rótulos dos lados são opcionais; sem preenchê-los, a direita representa verdadeiro e a esquerda representa falso. Use o conector circular para unir os caminhos novamente. Clique em uma linha para selecioná-la e pressione <b>Delete</b> para removê-la.
       </div>
     </aside>
 
@@ -366,6 +419,30 @@
         Selecione um bloco para editar sua função e o texto. Dois cliques no bloco focam o campo de texto.
       </div>
     </aside>
+  </div>
+</div>
+
+<div id="runOverlay" class="run-overlay" hidden>
+  <div class="run-panel" role="dialog" aria-modal="true" aria-labelledby="runTitle">
+    <div class="run-header">
+      <div>
+        <strong id="runTitle">Execução do fluxograma</strong>
+        <div id="runState" class="run-state">Preparando...</div>
+      </div>
+      <button id="runCloseBtn" class="run-close" type="button">Fechar</button>
+    </div>
+    <div id="runOutput" class="run-output" aria-live="polite"></div>
+    <div id="runInputArea" class="run-input-area" hidden>
+      <label id="runPromptLabel" for="runInput">Digite um valor:</label>
+      <div class="run-input-row">
+        <input id="runInput" type="text" autocomplete="off" inputmode="decimal">
+        <button id="runSendBtn" class="primary" type="button">Enviar</button>
+      </div>
+    </div>
+    <div class="run-footer">
+      <button id="runStopBtn" class="danger" type="button">Parar</button>
+      <button id="runRestartBtn" type="button">Reiniciar</button>
+    </div>
   </div>
 </div>
 
@@ -391,14 +468,17 @@
     panY: 0,
     viewport: {w:1400,h:900},
     pan: null,
-    clickTrack: {id:null,time:0,x:0,y:0}
+    clickTrack: {id:null,time:0,x:0,y:0},
+    executionId: null
   };
 
   const defaults = {
     inicio:   {w:150,h:58,text:'Inicio',font:25},
     entrada:  {w:299,h:78,text:'"Digite a informação:"',font:25},
     variavel: {w:91,h:60,text:'P1',font:27},
-    processo: {w:370,h:65,text:'Processo',font:25}
+    processo: {w:370,h:65,text:'Processo',font:25},
+    condicional: {w:190,h:120,text:'Condição',font:25,leftLabel:'',rightLabel:''},
+    conector: {w:40,h:40,text:'',font:20}
   };
 
   function uid(){ return 'n' + (state.nextId++); }
@@ -429,7 +509,8 @@
     const n = {
       id: uid(), type, x:snap(x), y:snap(y),
       w:d.w,h:d.h,text:d.text,font:d.font,
-      manualPosition:false
+      manualPosition:false,
+      ...(type==='condicional' ? {leftLabel:'', rightLabel:''} : {})
     };
     autoSizeNode(n);
     state.nodes.push(n);
@@ -503,6 +584,19 @@
       return;
     }
 
+    if(n.type==='condicional'){
+      const lines = wrapLines(n.text, 12);
+      const maxW = Math.max(...lines.map(l=>measureTextWidth(l,font)), font);
+      n.w = Math.max(190, maxW + 70);
+      n.h = Math.max(120, lines.length * font * 1.18 + 50);
+      return;
+    }
+
+    if(n.type==='conector'){
+      n.w = 40; n.h = 40; n.text = '';
+      return;
+    }
+
     // Processo / declaração / cálculo: retângulo da mesma linguagem visual.
     const lines = wrapLines(n.text, 34);
     const maxW = Math.max(...lines.map(l=>measureTextWidth(l,font)), font);
@@ -558,34 +652,80 @@
         Z" ${common}/>`;
     }
 
+    if(n.type==='condicional'){
+      const cx=n.x+n.w/2, cy=n.y+n.h/2;
+      return `<path d="M ${cx} ${n.y} L ${n.x+n.w} ${cy} L ${cx} ${n.y+n.h} L ${n.x} ${cy} Z" ${common}/>`;
+    }
+
+    if(n.type==='conector'){
+      const cx=n.x+n.w/2, cy=n.y+n.h/2;
+      return `<circle cx="${cx}" cy="${cy}" r="18" class="connector-junction"/>`;
+    }
+
     return `<rect x="${n.x}" y="${n.y}" width="${n.w}" height="${n.h}" ${common}/>`;
   }
 
   function textMarkup(n){
-    const lines = wrapLines(n.text, n.type==='entrada' ? 24 : (n.type==='variavel' ? 14 : 34));
+    if(n.type==='conector') return '';
+    const lines = wrapLines(n.text, n.type==='entrada' ? 24 : (n.type==='variavel' ? 14 : (n.type==='condicional' ? 12 : 34)));
     const lineH = n.font * 1.12;
     const total = (lines.length - 1) * lineH;
     const firstY = n.y + n.h/2 - total/2;
     const klass = n.type==='variavel' ? 'texto variavel' : 'texto principal';
-
-    return `<text x="${n.x+n.w/2}" class="${klass}">
-      ${lines.map((line,i)=>
-        `<tspan x="${n.x+n.w/2}" y="${firstY + i*lineH}">${escapeXml(line)}</tspan>`
-      ).join('')}
-    </text>`;
+    let out=`<text x="${n.x+n.w/2}" class="${klass}">${lines.map((line,i)=>`<tspan x="${n.x+n.w/2}" y="${firstY + i*lineH}">${escapeXml(line)}</tspan>`).join('')}</text>`;
+    if(n.type==='condicional'){
+      if(n.leftLabel) out += `<text x="${n.x-18}" y="${n.y+n.h/2}" class="conditional-label">${escapeXml(n.leftLabel)}</text>`;
+      if(n.rightLabel) out += `<text x="${n.x+n.w+18}" y="${n.y+n.h/2}" class="conditional-label">${escapeXml(n.rightLabel)}</text>`;
+    }
+    return out;
   }
 
   function anchorPoint(n, side){
     const cx=n.x+n.w/2, cy=n.y+n.h/2;
+
+    // A forma de Entrada de dados (variavel) possui as bordas inclinadas.
+    // Por isso, x/y da caixa não coincidem sempre com a borda visual.
+    // Calculamos os pontos de conexão exatamente sobre o contorno da forma.
+    if(n.type==='variavel'){
+      const slant = Math.min(20, n.w * 0.22);
+      // A linha é deixada ligeiramente por dentro do contorno.
+      // Como a forma é desenhada acima das conexões, esse pequeno avanço
+      // elimina o aspecto de "linha quase encostando" e faz a conexão
+      // aparecer visualmente tocando a borda.
+      const overlap = 2;
+
+      if(side==='top'){
+        // Borda superior: (x+slant, y+20) -> (x+w, y)
+        const t = (cx - (n.x + slant)) / (n.w - slant);
+        return {x:cx, y:n.y + 20 * (1 - t) + overlap};
+      }
+      if(side==='bottom') return {x:cx, y:n.y+n.h-overlap};
+      if(side==='left') return {x:n.x+slant+overlap, y:cy};
+      return {x:n.x+n.w+1-overlap, y:cy};
+    }
+
     if(side==='top') return {x:cx,y:n.y};
     if(side==='bottom') return {x:cx,y:n.y+n.h};
     if(side==='left') return {x:n.x,y:cy};
     return {x:n.x+n.w,y:cy};
   }
 
-  function makePath(a,b){
+  function defaultFromSide(n){ return 'bottom'; }
+  function defaultToSide(n){ return 'top'; }
+
+  function makePath(a,b,fromSide='bottom',toSide='top'){
+    if(fromSide==='left' || fromSide==='right'){
+      const dir=fromSide==='left' ? -1 : 1;
+      const c=Math.max(45,Math.abs(b.x-a.x)*0.45,Math.abs(b.y-a.y)*0.2);
+      return `M ${a.x} ${a.y} C ${a.x+dir*c} ${a.y}, ${b.x-dir*c} ${b.y}, ${b.x} ${b.y}`;
+    }
+    if(toSide==='left' || toSide==='right'){
+      const dir=toSide==='left' ? -1 : 1;
+      const c=Math.max(45,Math.abs(b.x-a.x)*0.45,Math.abs(b.y-a.y)*0.2);
+      return `M ${a.x} ${a.y} C ${a.x} ${a.y+c}, ${b.x+dir*c} ${b.y}, ${b.x} ${b.y}`;
+    }
     const dy=b.y-a.y;
-    const curve=Math.max(40, Math.abs(dy)*0.45);
+    const curve=Math.max(40,Math.abs(dy)*0.45);
     return `M ${a.x} ${a.y} C ${a.x} ${a.y+curve}, ${b.x} ${b.y-curve}, ${b.x} ${b.y}`;
   }
 
@@ -599,28 +739,40 @@
     }
     const from = getNode(state.drag.startNode);
     if(!from) { layer.innerHTML=''; return; }
-    const p1 = anchorPoint(from,'bottom');
-    layer.innerHTML = `<path class="connector temp" d="${makePath(p1, point)}"/>`;
+    const fromSide=state.drag.fromSide || defaultFromSide(from);
+    const p1=anchorPoint(from,fromSide);
+    layer.innerHTML = `<path class="connector temp" d="${makePath(p1,point,fromSide,'top')}"/>`;
   }
 
   function render(){
     linksLayer.innerHTML = state.links.map((l,i)=>{
       const a=getNode(l.from), b=getNode(l.to);
       if(!a||!b)return '';
-      const p1=anchorPoint(a,'bottom');
-      const p2=anchorPoint(b,'top');
-      const d=makePath(p1,p2);
+      const fromSide=l.fromSide || defaultFromSide(a);
+      const toSide=l.toSide || defaultToSide(b);
+      const d=makePath(anchorPoint(a,fromSide),anchorPoint(b,toSide),fromSide,toSide);
       return `<path data-link="${i}" class="connector-hit" d="${d}"/>
               <path data-link="${i}" class="connector ${l.selected?'selected':''}" d="${d}"/>`;
     }).join('');
 
-    nodesLayer.innerHTML = state.nodes.map(n => `
-      <g class="node ${n.id===state.selectedId?'selected':''}" data-id="${n.id}">
-        ${shapeMarkup(n)}
-        ${textMarkup(n)}
-        <circle class="handle" cx="${n.x+n.w/2}" cy="${n.y+n.h}" r="9"/><title>Arraste este ponto até outro bloco para conectar</title>
-      </g>
-    `).join('');
+    nodesLayer.innerHTML = state.nodes.map(n => {
+      let handles='';
+      if(n.type==='condicional'){
+        handles=`<circle class="handle" data-side="top" cx="${n.x+n.w/2}" cy="${n.y}" r="9"/><title>Entrada</title>
+        <circle class="handle" data-side="left" cx="${n.x}" cy="${n.y+n.h/2}" r="9"/><title>Saída Não</title>
+        <circle class="handle" data-side="right" cx="${n.x+n.w}" cy="${n.y+n.h/2}" r="9"/><title>Saída Sim</title>`;
+      }else if(n.type==='conector'){
+        // No Conector, as laterais são pontos de chegada das conexões.
+        // Eles permanecem invisíveis para não poluir a interface.
+        // A saída inferior aparece somente quando o Conector é selecionado.
+        handles=`<circle class="handle connector-input-handle" data-side="left" cx="${n.x}" cy="${n.y+n.h/2}" r="8"/><title>Entrada</title>
+        <circle class="handle connector-input-handle" data-side="right" cx="${n.x+n.w}" cy="${n.y+n.h/2}" r="8"/><title>Entrada</title>
+        <circle class="handle connector-output-handle" data-side="bottom" cx="${n.x+n.w/2}" cy="${n.y+n.h}" r="8"/><title>Saída</title>`;
+      }else{
+        handles=`<circle class="handle" data-side="bottom" cx="${n.x+n.w/2}" cy="${n.y+n.h}" r="9"/><title>Arraste este ponto até outro bloco para conectar</title>`;
+      }
+      return `<g class="node ${n.id===state.selectedId?'selected ':''}${n.id===state.executionId?'executing':''}" data-id="${n.id}">${shapeMarkup(n)}${textMarkup(n)}${handles}</g>`;
+    }).join('');
 
     statsEl.textContent = `${state.nodes.length} blocos · ${state.links.length} conexões`;
   }
@@ -638,10 +790,25 @@
         <option value="entrada"${n.type==='entrada'?' selected':''}>Exibir na tela</option>
         <option value="variavel"${n.type==='variavel'?' selected':''}>Entrada de dados</option>
         <option value="processo"${n.type==='processo'?' selected':''}>Processo</option>
+        <option value="condicional"${n.type==='condicional'?' selected':''}>Condicional</option>
+        <option value="conector"${n.type==='conector'?' selected':''}>Conector</option>
               </select>
 
-      <label>Texto da função</label>
-      <textarea id="pText">${escapeXml(n.text)}</textarea>
+      ${n.type==='conector' ? '<div class="tiny">Bolinha de junção: use as laterais para receber os dois caminhos e a parte inferior para continuar o fluxo.</div>' : `<label>Texto da função</label><textarea id="pText">${escapeXml(n.text)}</textarea>`}
+
+      ${n.type==='condicional' ? `
+        <div class="row conditional-labels">
+          <div>
+            <label for="pLeftLabel">Rótulo da esquerda</label>
+            <input id="pLeftLabel" type="text" value="${escapeXml(n.leftLabel || '')}" placeholder="Ex.: Falso, N...">
+          </div>
+          <div>
+            <label for="pRightLabel">Rótulo da direita</label>
+            <input id="pRightLabel" type="text" value="${escapeXml(n.rightLabel || '')}" placeholder="Ex.: Verdadeiro, S...">
+          </div>
+        </div>
+        <div class="tiny">Os rótulos são opcionais. Quando deixados em branco, a direita representa verdadeiro e a esquerda representa falso.</div>
+      ` : ''}
 
       <div class="actions">
         <button id="duplicateBtn">Duplicar</button>
@@ -652,11 +819,41 @@
 
     const typeField = document.getElementById('pType');
     const textField = document.getElementById('pText');
+    const leftLabelField = document.getElementById('pLeftLabel');
+    const rightLabelField = document.getElementById('pRightLabel');
+
+    if(textField) textField.addEventListener('input', ()=>{
+      const cur=getNode(state.selectedId);
+      if(!cur)return;
+      cur.text=textField.value;
+      autoSizeNode(cur);
+      render();
+    });
+
+    if(leftLabelField) leftLabelField.addEventListener('input', ()=>{
+      const cur=getNode(state.selectedId);
+      if(!cur || cur.type!=='condicional') return;
+      cur.leftLabel=leftLabelField.value;
+      render();
+    });
+
+    if(rightLabelField) rightLabelField.addEventListener('input', ()=>{
+      const cur=getNode(state.selectedId);
+      if(!cur || cur.type!=='condicional') return;
+      cur.rightLabel=rightLabelField.value;
+      render();
+    });
 
     typeField.addEventListener('change', ()=>{
       const cur=getNode(state.selectedId);
       if(!cur)return;
       cur.type = typeField.value;
+      if(cur.type==='condicional'){
+        if(!cur.text) cur.text='Condição';
+        if(typeof cur.leftLabel!=='string') cur.leftLabel='';
+        if(typeof cur.rightLabel!=='string') cur.rightLabel='';
+      }
+      if(cur.type==='conector') cur.text='';
       autoSizeNode(cur);
       render();
       showInspector();
@@ -664,15 +861,6 @@
         const field=document.getElementById('pText');
         if(field){ field.focus(); field.setSelectionRange(field.value.length, field.value.length); }
       },0);
-    });
-
-    textField.addEventListener('input', ()=>{
-      const cur=getNode(state.selectedId);
-      if(!cur)return;
-      cur.text = textField.value;
-      autoSizeNode(cur);
-      render();
-      // NÃO reconstruir o inspector aqui: isso fazia o textarea perder foco a cada letra.
     });
 
     document.getElementById('removeBtn').onclick=removeSelected;
@@ -753,10 +941,29 @@
       const id=nodeEl.dataset.id;
       const n=getNode(id);
       if(handle){
+        const side=handle.dataset.side || defaultFromSide(n);
+
+        // O Conector só pode iniciar uma conexão pela saída inferior.
+        // As laterais continuam sendo pontos de chegada para os dois ramos.
+        // O destino pode ser qualquer bloco que aceite uma entrada, inclusive
+        // Entrada de dados (variavel) e Exibir na tela (entrada).
+        if(n.type==='conector' && side!=='bottom'){
+          state.selectedId=id;
+          state.mode=null;
+          state.drag=null;
+          state.links.forEach(l=>l.selected=false);
+          render();
+          showInspector();
+          announce('As laterais do Conector são entradas. Use a bolinha inferior para continuar o fluxo.');
+          e.preventDefault();
+          e.stopPropagation();
+          return;
+        }
+
         // O handle inicia uma conexão e não precisa reconstruir o DOM antes do arrasto.
         state.selectedId=id;
         state.mode='connect';
-        state.drag={startNode:id};
+        state.drag={startNode:id,fromSide:side};
         render();
         showInspector();
       }else{
@@ -802,15 +1009,44 @@
       // O elemento sob o ponteiro pode não ser e.target, porque o SVG
       // é redesenhado enquanto a conexão é arrastada. Fazemos hit-test
       // pela posição real do mouse.
+      // Durante o arrasto o SVG pode ser redesenhado e o elemento sob o
+      // ponteiro nem sempre aparece em elementsFromPoint(). Para tornar a
+      // conexão robusta (especialmente Conector -> função), fazemos também
+      // um hit-test geométrico usando a posição real do ponteiro no SVG.
+      const pointer = pointFromEvent(e);
       const under = document.elementsFromPoint(e.clientX, e.clientY)
         .map(el => el.closest?.('.node'))
         .find(Boolean);
 
       const from = state.drag.startNode;
-      const to = under?.dataset?.id;
+      const fromNode = getNode(from);
+      let to = under?.dataset?.id || null;
 
-      if(to && from !== to && !state.links.some(l=>l.from===from&&l.to===to)){
-        state.links.push({from,to});
+      if(!to){
+        const hitPadding = 14;
+        const hit = state.nodes.find(n => {
+          if(n.id===from) return false;
+          return pointer.x >= n.x-hitPadding && pointer.x <= n.x+n.w+hitPadding &&
+                 pointer.y >= n.y-hitPadding && pointer.y <= n.y+n.h+hitPadding;
+        });
+        to = hit?.id || null;
+      }
+
+      const toNode = to ? getNode(to) : null;
+      let toSide = defaultToSide(toNode);
+
+      // Conector recebe pelas laterais; os demais blocos recebem pelo topo.
+      if(toNode?.type==='conector'){
+        toSide = pointer.x < (toNode.x+toNode.w/2) ? 'left' : 'right';
+      }
+
+      const fromSide=state.drag.fromSide || defaultFromSide(fromNode);
+
+      if(to && from !== to && !state.links.some(l=>
+        l.from===from && l.to===to &&
+        (l.fromSide||'bottom')===fromSide && (l.toSide||'top')===toSide
+      )){
+        state.links.push({from,to,fromSide,toSide});
         announce('Conexão criada');
       } else if(!to){
         announce('Solte sobre outro bloco para conectar');
@@ -980,7 +1216,7 @@
       app: 'Editor de Fluxogramas',
       savedAt: new Date().toISOString(),
       nodes: state.nodes.map(n => ({...n})),
-      links: state.links.map(l => ({from:l.from, to:l.to})),
+      links: state.links.map(l => ({from:l.from, to:l.to, fromSide:l.fromSide||'bottom', toSide:l.toSide||'top'})),
       nextId: state.nextId
     };
   }
@@ -998,14 +1234,15 @@
       x:Number(n.x)||0, y:Number(n.y)||0,
       w:Number(n.w)||100, h:Number(n.h)||60,
       font:Number(n.font)||25, text:String(n.text ?? ''),
-      manualPosition:!!n.manualPosition
+      manualPosition:!!n.manualPosition,
+      ...(n.type==='condicional' ? {leftLabel:String(n.leftLabel ?? ''), rightLabel:String(n.rightLabel ?? '')} : {})
     }));
 
     const hasNode = id => nodes.some(n => n.id === String(id));
     state.nodes = nodes;
     state.links = data.links
       .filter(l => l && hasNode(l.from) && hasNode(l.to))
-      .map(l => ({from:String(l.from), to:String(l.to), selected:false}));
+      .map(l => ({from:String(l.from), to:String(l.to), fromSide:l.fromSide||'bottom', toSide:l.toSide||'top', selected:false}));
 
     const maxId = state.nodes.reduce((max,n) => {
       const m = String(n.id).match(/^n(\d+)$/);
@@ -1139,6 +1376,7 @@
     out+=`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="${b.x} ${b.y} ${W} ${H}">\n`;
     out+=`  <defs><style>\n`;
     out+=`    .forma{fill:#eef1f5;stroke:#111111;stroke-width:2.5;}\n`;
+    out+=`    .connector-junction{fill:#eef1f5;stroke:#111111;stroke-width:2.5;}\n`;
     out+=`    .texto{font-family:"Times New Roman",Times,serif;fill:#111111;text-anchor:middle;dominant-baseline:middle;}\n`;
     out+=`    .linha{stroke:#111111;stroke-width:2.5;fill:none;}\n`;
     out+=`  </style></defs>\n`;
@@ -1146,24 +1384,571 @@
     state.links.forEach(l=>{
       const a=getNode(l.from),bb=getNode(l.to);
       if(!a||!bb)return;
-      out+=`  <path d="${makePath(anchorPoint(a,'bottom'),anchorPoint(bb,'top'))}" class="linha"/>\n`;
+      const fromSide=l.fromSide || defaultFromSide(a);
+      const toSide=l.toSide || defaultToSide(bb);
+      out+=`  <path d="${makePath(anchorPoint(a,fromSide),anchorPoint(bb,toSide),fromSide,toSide)}" class="linha"/>\n`;
     });
 
     state.nodes.forEach(n=>{
-      const lines=wrapLines(n.text,n.type==='entrada'?24:(n.type==='variavel'?14:34));
+      const lines=wrapLines(n.text,n.type==='entrada'?24:(n.type==='variavel'?14:(n.type==='condicional'?12:34)));
       const lineH=n.font*1.12;
       const total=(lines.length-1)*lineH;
       const firstY=n.y+n.h/2-total/2;
       out+=`  <g id="${escapeXml(n.id)}">\n`;
       out+=`    ${shapeMarkup(n)}\n`;
-      out+=`    <text class="texto" style="font-size:${n.font}px">`;
-      out+=lines.map((line,i)=>`<tspan x="${n.x+n.w/2}" y="${firstY+i*lineH}">${escapeXml(line)}</tspan>`).join('');
-      out+=`</text>\n  </g>\n`;
+      if(n.type!=='conector'){
+        out+=`    <text class="texto" style="font-size:${n.font}px">`;
+        out+=lines.map((line,i)=>`<tspan x="${n.x+n.w/2}" y="${firstY+i*lineH}">${escapeXml(line)}</tspan>`).join('');
+        out+=`</text>\n`;
+        if(n.type==='condicional'){
+          if(n.leftLabel) out+=`    <text class="texto" style="font-size:20px"><tspan x="${n.x-18}" y="${n.y+n.h/2}">${escapeXml(n.leftLabel)}</tspan></text>
+`;
+          if(n.rightLabel) out+=`    <text class="texto" style="font-size:20px"><tspan x="${n.x+n.w+18}" y="${n.y+n.h/2}">${escapeXml(n.rightLabel)}</tspan></text>
+`;
+        }
+      }
+      out+=`  </g>\n`;
     });
 
     out+=`</svg>`;
     return out;
   }
+
+
+  /* =========================
+     Interpretador do fluxograma
+     ========================= */
+  const runOverlay=document.getElementById('runOverlay');
+  const runOutput=document.getElementById('runOutput');
+  const runInputArea=document.getElementById('runInputArea');
+  const runPromptLabel=document.getElementById('runPromptLabel');
+  const runInput=document.getElementById('runInput');
+  const runSendBtn=document.getElementById('runSendBtn');
+  const runStopBtn=document.getElementById('runStopBtn');
+  const runRestartBtn=document.getElementById('runRestartBtn');
+  const runCloseBtn=document.getElementById('runCloseBtn');
+  const runState=document.getElementById('runState');
+  const runBtn=document.getElementById('runBtn');
+
+  const execution={
+    running:false,
+    stopped:false,
+    currentNode:null,
+    waitInput:null,
+    vars:Object.create(null),
+    lastPrompt:'',
+    startId:null
+  };
+
+  function runEscapeHtml(s){
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function runPrint(text, cls=''){
+    const div=document.createElement('div');
+    div.className='run-line'+(cls?' '+cls:'');
+    div.innerHTML=runEscapeHtml(String(text));
+    runOutput.appendChild(div);
+    runOutput.scrollTop=runOutput.scrollHeight;
+  }
+
+  function runSetState(text){ runState.textContent=text; }
+
+  function runOpen(){
+    runOverlay.hidden=false;
+    runOutput.innerHTML='';
+    runInputArea.hidden=true;
+    runInput.value='';
+    execution.running=false;
+    execution.stopped=false;
+    execution.currentNode=null;
+    state.executionId=null;
+    render();
+    runPrint('Clique em Executar para iniciar o fluxograma.');
+  }
+
+  function runClearHighlight(){
+    state.executionId=null;
+    execution.currentNode=null;
+    render();
+  }
+
+  function runClose(){
+    execution.stopped=true;
+    execution.running=false;
+    execution.waitInput=null;
+    runInputArea.hidden=true;
+    runClearHighlight();
+    runOverlay.hidden=true;
+    runBtn.classList.remove('running');
+    runBtn.textContent='▶ Executar';
+  }
+
+  function runStop(){
+    execution.stopped=true;
+    execution.running=false;
+    if(execution.waitInput){
+      execution.waitInput.reject(new Error('Execução interrompida pelo usuário.'));
+      execution.waitInput=null;
+    }
+    runInputArea.hidden=true;
+    runSetState('Execução interrompida.');
+    runPrint('Execução interrompida.', 'error');
+    runClearHighlight();
+    runBtn.classList.remove('running');
+    runBtn.textContent='▶ Executar';
+  }
+
+  function runSleep(ms){
+    return new Promise(resolve=>setTimeout(resolve,ms));
+  }
+
+  function runFindStart(){
+    return state.nodes.find(n=>n.type==='inicio' && String(n.text).trim().toLowerCase()!=='fim')
+      || state.nodes.find(n=>n.type==='inicio');
+  }
+
+  function runOutgoing(nodeId){
+    return state.links
+      .map((l,i)=>({l,i}))
+      .filter(({l})=>l.from===nodeId)
+      .sort(({l:a},{l:b})=>{
+        const order={top:0,left:1,right:2,bottom:3};
+        return (order[a.fromSide||'bottom']??9)-(order[b.fromSide||'bottom']??9);
+      });
+  }
+
+  function runBranchLink(node){
+    const outs=runOutgoing(node.id);
+    if(node.type!=='condicional') return outs[0]?.l || null;
+    const right=outs.find(l=>(l.l.fromSide||'bottom')==='right')?.l;
+    const left=outs.find(l=>(l.l.fromSide||'bottom')==='left')?.l;
+    return {left,right,other:outs.find(l=>!['left','right'].includes(l.l.fromSide||'bottom'))?.l};
+  }
+
+  function runSplitTopLevel(text, delimiter=','){
+    const parts=[]; let current=''; let quote=null; let depth=0;
+    for(let i=0;i<String(text).length;i++){
+      const ch=String(text)[i];
+      if(quote){
+        current+=ch;
+        if(ch===quote && String(text)[i-1]!=='\\') quote=null;
+        continue;
+      }
+      if(ch==='"' || ch==="'"){quote=ch; current+=ch; continue;}
+      if(ch==='(' || ch==='[') depth++;
+      else if(ch===')' || ch===']') depth--;
+      if(ch===delimiter && depth===0){parts.push(current.trim()); current='';}
+      else current+=ch;
+    }
+    if(current.trim() || parts.length) parts.push(current.trim());
+    return parts;
+  }
+
+  function runNormalizeDecimal(value){
+    const s=String(value).trim();
+    if(/^[-+]?\d{1,3}(?:\.\d{3})*,\d+$/.test(s)) return s.replace(/\./g,'').replace(',','.');
+    if(/^[-+]?\d+,\d+$/.test(s)) return s.replace(',','.');
+    return s;
+  }
+
+  function runParseInput(value){
+    const normalized=runNormalizeDecimal(value);
+    if(normalized==='') return '';
+    const num=Number(normalized);
+    return Number.isFinite(num) ? num : value;
+  }
+
+  const RUN_RESERVED_LITERALS = new Set(['true','false']);
+
+  function runIdentifierList(){
+    return Object.keys(execution.vars).filter(k=>runIsIdentifier(k));
+  }
+
+  function runIsIdentifier(name){
+    return /^[A-Za-z_$\u00C0-\uFFFF][\w$\u00C0-\uFFFF]*$/.test(String(name));
+  }
+
+  function runUndeclaredVariables(expr){
+    const source=String(expr||'');
+    const ids=new Set();
+    let cleaned='';
+    let quote=null;
+
+    for(let i=0;i<source.length;i++){
+      const ch=source[i];
+      if(quote){
+        if(ch===quote && source[i-1]!=='\\') quote=null;
+        cleaned+=' ';
+        continue;
+      }
+      if(ch==='"' || ch==="'"){
+        quote=ch;
+        cleaned+=' ';
+        continue;
+      }
+      cleaned+=ch;
+    }
+
+    for(const name of cleaned.match(/[A-Za-z_$\u00C0-\uFFFF][\w$\u00C0-\uFFFF]*/g) || []){
+      if(RUN_RESERVED_LITERALS.has(name)) continue;
+      if(runIsIdentifier(name) && !(name in execution.vars)) ids.add(name);
+    }
+    return [...ids];
+  }
+
+  function runAssertKnownVariables(expr, context='expressão'){
+    const missing=runUndeclaredVariables(expr);
+    if(missing.length){
+      const plural=missing.length>1;
+      const list=missing.map(v=>`"${v}"`).join(', ');
+      throw new Error(`${plural?'Variáveis não declaradas':'Variável não declarada'} em ${context}: ${list}. Declare ${plural?'essas variáveis':'essa variável'} em um bloco Processo antes de utilizá-la.`);
+    }
+  }
+
+  function runAssertAssignedVariables(expr, context='expressão'){
+    runAssertKnownVariables(expr,context);
+    const used=[...new Set((String(expr||'').match(/[A-Za-z_$\u00C0-\uFFFF][\w$\u00C0-\uFFFF]*/g)||[]))]
+      .filter(name=>!RUN_RESERVED_LITERALS.has(name));
+    const unassigned=used.filter(name=>name in execution.vars && execution.vars[name]===undefined);
+    if(unassigned.length){
+      const list=unassigned.map(v=>`"${v}"`).join(', ');
+      throw new Error(`${unassigned.length>1?'Variáveis':'Variável'} ainda sem valor em ${context}: ${list}. Verifique se receberam uma entrada antes de serem utilizadas.`);
+    }
+  }
+
+  function runEval(expr, condition=false){
+    let source=String(expr||'').trim();
+    if(!source) throw new Error('Expressão vazia.');
+    source=source.replace(/,/g,'.');
+    source=source.replace(/\^/g,'**');
+    if(condition) source=source.replace(/(^|[^<>=!])=([^=])/g,'$1==$2');
+
+    if(!/^[\s\dA-Za-z_$\u00C0-\uFFFF+\-*/%().,<>=!&|?:'"\[\]]+$/.test(source)){
+      throw new Error('Expressão contém caracteres não suportados: '+expr);
+    }
+
+    runAssertAssignedVariables(source, condition ? 'condição' : 'expressão');
+
+    const names=runIdentifierList();
+    const values=names.map(name=>execution.vars[name]);
+    let result;
+    try{
+      const fn=new Function(...names, `"use strict"; return (${source});`);
+      result=fn(...values);
+    }catch(err){
+      if(err instanceof ReferenceError) throw new Error(`Não foi possível avaliar "${expr}". Verifique as variáveis declaradas.`);
+      if(err instanceof SyntaxError) throw new Error(`Expressão inválida: "${expr}".`);
+      throw new Error(`Erro ao avaliar "${expr}": ${err.message}`);
+    }
+    if(typeof result==='number' && !Number.isFinite(result)){
+      throw new Error(`A expressão "${expr}" produziu um resultado inválido. Verifique, por exemplo, se houve divisão por zero.`);
+    }
+    return result;
+  }
+
+  function runEvalOutput(text){
+    const raw=String(text||'').trim();
+    if(!raw) throw new Error('Bloco "Exibir na tela" está vazio.');
+    const parts=runSplitTopLevel(raw);
+    const evalPiece=part=>{
+      const p=part.trim();
+      if((p.startsWith('"')&&p.endsWith('"')) || (p.startsWith("'")&&p.endsWith("'"))) return p.slice(1,-1);
+      return runEval(p);
+    };
+    if(parts.length===1){
+      const only=parts[0];
+      if((only.startsWith('"')&&only.endsWith('"')) || (only.startsWith("'")&&only.endsWith("'"))) return only.slice(1,-1);
+      const adjacent=only.match(/^("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')\s+(.+)$/);
+      if(adjacent) return adjacent[1].slice(1,-1) + String(runEval(adjacent[2]));
+    }
+    return parts.map(evalPiece).map(v=>v==null?'':String(v)).join('');
+  }
+
+  function runAssignments(text){
+    const statements=String(text||'').replace(/\r/g,'').split(/[;\n]+/).map(s=>s.trim()).filter(Boolean);
+    if(!statements.length) throw new Error('Bloco Processo está vazio.');
+
+    for(const statement of statements){
+      const parts=runSplitTopLevel(statement, ',').filter(Boolean);
+      for(const part of parts){
+        const item=part.trim();
+        const m=item.match(/^([A-Za-z_$\u00C0-\uFFFF][\w$\u00C0-\uFFFF]*)\s*=\s*(.+)$/);
+        if(m){
+          const target=m[1], expression=m[2].trim();
+          if(!(target in execution.vars)) throw new Error(`Variável "${target}" não foi declarada. Declare-a primeiro em um bloco Processo.`);
+          if(!expression) throw new Error(`Atribuição inválida para "${target}": a expressão está vazia.`);
+          execution.vars[target]=runEval(expression);
+        }else if(runIsIdentifier(item)){
+          if(item in execution.vars) throw new Error(`A variável "${item}" já foi declarada.`);
+          execution.vars[item]=undefined;
+        }else{
+          throw new Error(`Processo não reconhecido: ${item}. Use, por exemplo, "A, B" para declarar ou "soma = A + B" para atribuir.`);
+        }
+      }
+    }
+  }
+
+  function runReadInput(variable,prompt){
+    runPromptLabel.textContent=prompt || `Digite ${variable}:`;
+    runInput.value='';
+    runInputArea.hidden=false;
+    runInput.focus();
+    runSetState(`Aguardando valor para ${variable}`);
+    return new Promise((resolve,reject)=>{
+      execution.waitInput={resolve,reject,variable};
+    });
+  }
+
+  async function runStepNode(node){
+    execution.currentNode=node.id;
+    state.executionId=node.id;
+    render();
+    await runSleep(320);
+    if(execution.stopped) throw new Error('Execução interrompida.');
+
+    if(node.type==='inicio'){
+      if(String(node.text).trim().toLowerCase()==='fim') return {kind:'end'};
+      return {next:runOutgoing(node.id)[0]?.l?.to};
+    }
+
+    if(node.type==='entrada'){
+      const output=runEvalOutput(node.text);
+      runPrint(output, 'program');
+      execution.lastPrompt=output;
+      return {next:runOutgoing(node.id)[0]?.l?.to};
+    }
+
+    if(node.type==='variavel'){
+      const variable=String(node.text||'').trim();
+      if(!runIsIdentifier(variable)) throw new Error(`Nome de variável inválido: ${variable}`);
+      if(!(variable in execution.vars)) throw new Error(`Variável "${variable}" foi usada como entrada, mas não foi declarada em um bloco Processo.`);
+      if(execution.vars[variable]!==undefined) throw new Error(`A variável "${variable}" já recebeu um valor. Evite informá-la novamente.`);
+      const prompt=execution.lastPrompt || `Digite ${variable}:`;
+      execution.lastPrompt='';
+      const value=await runReadInput(variable,prompt);
+      execution.vars[variable]=value;
+      runPrint(`${variable} = ${value}`, 'interpreter');
+      runInputArea.hidden=true;
+      return {next:runOutgoing(node.id)[0]?.l?.to};
+    }
+
+    if(node.type==='processo'){
+      runAssignments(node.text);
+      return {next:runOutgoing(node.id)[0]?.l?.to};
+    }
+
+    if(node.type==='condicional'){
+      if(!String(node.text||'').trim()) throw new Error('O Condicional está sem uma condição.');
+      const value=runEval(node.text,true);
+      if(typeof value!=='boolean' && typeof value!=='number') throw new Error(`A condição "${node.text}" não produziu um valor lógico.`);
+      const result=Boolean(value);
+      runPrint(`Condição: ${node.text} → ${result ? 'verdadeiro' : 'falso'}`, 'interpreter');
+      const branch=runBranchLink(node);
+      const chosen=result ? branch.right : branch.left;
+      if(!chosen) throw new Error(`O condicional "${node.text}" não possui a saída ${result ? 'direita' : 'esquerda'}.`);
+      return {next:chosen.to};
+    }
+
+    if(node.type==='conector'){
+      const outs=runOutgoing(node.id);
+      if(outs.length===0) throw new Error('O Conector não possui uma saída.');
+      if(outs.length>1) throw new Error('O Conector possui mais de uma saída. Deixe apenas uma conexão saindo dele.');
+      return {next:outs[0].l.to};
+    }
+
+    throw new Error(`Tipo de bloco não suportado: ${node.type}`);
+  }
+
+  function runFindReachableConnectors(nodeId, visited=new Set()){
+    if(!nodeId || visited.has(nodeId)) return new Set();
+    visited.add(nodeId);
+    const node=getNode(nodeId);
+    if(!node) return new Set();
+    if(node.type==='conector') return new Set([nodeId]);
+
+    const result=new Set();
+    for(const {l} of runOutgoing(nodeId)){
+      for(const id of runFindReachableConnectors(l.to, new Set(visited))) result.add(id);
+    }
+    return result;
+  }
+
+  function runValidateConditionalConnectors(errors){
+    for(const conditional of state.nodes.filter(n=>n.type==='condicional')){
+      const outs=runOutgoing(conditional.id);
+      const left=outs.find(({l})=>(l.fromSide||'bottom')==='left')?.l;
+      const right=outs.find(({l})=>(l.fromSide||'bottom')==='right')?.l;
+
+      if(!left || !right) continue;
+
+      const leftConnectors=runFindReachableConnectors(left.to);
+      const rightConnectors=runFindReachableConnectors(right.to);
+      const common=[...leftConnectors].filter(id=>rightConnectors.has(id));
+
+      if(common.length===0){
+        errors.push(`O Condicional "${conditional.text}" precisa de um Conector para unir os caminhos da esquerda e da direita antes de continuar o fluxo.`);
+        continue;
+      }
+
+      if(common.length>1){
+        errors.push(`O Condicional "${conditional.text}" alcança mais de um Conector comum aos dois caminhos. Deixe apenas um ponto de união.`);
+      }
+
+      const connectorId=common[0];
+      const incoming=state.links.filter(l=>l.to===connectorId);
+      if(incoming.length!==2){
+        errors.push(`O Conector após o Condicional "${conditional.text}" deve receber exatamente duas conexões, uma de cada caminho.`);
+      }
+    }
+  }
+
+  function runValidateProgram(start){
+    const errors=[];
+    const starts=state.nodes.filter(n=>n.type==='inicio' && String(n.text||'').trim().toLowerCase()!=='fim');
+    const ends=state.nodes.filter(n=>n.type==='inicio' && String(n.text||'').trim().toLowerCase()==='fim');
+    if(starts.length===0) errors.push('Não existe um bloco Início válido.');
+    if(starts.length>1) errors.push(`Existem ${starts.length} blocos Início. Use apenas um ponto de entrada.`);
+    if(ends.length===0) errors.push('Não existe um bloco Fim.');
+
+    const declared=new Set();
+    const processNodes=state.nodes.filter(n=>n.type==='processo');
+    for(const n of processNodes){
+      const statements=String(n.text||'').replace(/\r/g,'').split(/[;\n]+/).map(x=>x.trim()).filter(Boolean);
+      for(const statement of statements){
+        for(const part of runSplitTopLevel(statement, ',').filter(Boolean)){
+          const item=part.trim();
+          const m=item.match(/^([A-Za-z_$\u00C0-\uFFFF][\w$\u00C0-\uFFFF]*)\s*=\s*(.+)$/);
+          if(m){
+            if(!declared.has(m[1])) errors.push(`A variável "${m[1]}" recebe valor antes de ser declarada.`);
+            try{ runAssertKnownVariables(m[2], `processo "${n.text}"`); }catch(err){ errors.push(err.message); }
+          }else if(runIsIdentifier(item)){
+            if(declared.has(item)) errors.push(`A variável "${item}" foi declarada mais de uma vez.`);
+            declared.add(item);
+          }
+        }
+      }
+    }
+
+    for(const n of state.nodes.filter(n=>n.type==='variavel')){
+      const name=String(n.text||'').trim();
+      if(!runIsIdentifier(name)) errors.push(`Entrada de dados "${n.text}" possui nome inválido.`);
+      else if(!declared.has(name)) errors.push(`A variável "${name}" foi usada na entrada, mas não foi declarada em Processo.`);
+    }
+
+    runValidateConditionalConnectors(errors);
+
+    for(const n of state.nodes){
+      const outs=runOutgoing(n.id);
+      const isEnd=n.type==='inicio' && String(n.text||'').trim().toLowerCase()==='fim';
+      if(isEnd) continue;
+      if(n.type==='condicional'){
+        const left=outs.filter(({l})=>(l.fromSide||'bottom')==='left');
+        const right=outs.filter(({l})=>(l.fromSide||'bottom')==='right');
+        if(left.length!==1) errors.push(`Condicional "${n.text}" precisa ter exatamente uma saída pela esquerda.`);
+        if(right.length!==1) errors.push(`Condicional "${n.text}" precisa ter exatamente uma saída pela direita.`);
+      }else if(outs.length===0){
+        errors.push(`O bloco "${n.text || n.type}" não possui uma próxima conexão.`);
+      }else if(outs.length>1 && n.type!=='conector'){
+        errors.push(`O bloco "${n.text || n.type}" possui mais de uma saída.`);
+      }
+    }
+
+    if(errors.length) throw new Error([...new Set(errors)].slice(0,10).join(' | ')+(errors.length>10?` | E mais ${errors.length-10} erro(s).`:''));
+  }
+
+  async function runProgram(){
+    if(execution.running) return;
+    const start=runFindStart();
+    if(!start){
+      runSetState('Erro');
+      runPrint('Não encontrei um bloco Início.', 'error');
+      return;
+    }
+    try{
+      runValidateProgram(start);
+    }catch(err){
+      runSetState('Erro de validação.');
+      runPrint('Erro de validação: '+err.message, 'error');
+      return;
+    }
+    execution.running=true;
+    execution.stopped=false;
+    execution.vars=Object.create(null);
+    execution.lastPrompt='';
+    execution.startId=start.id;
+    runOutput.innerHTML='';
+    runInputArea.hidden=true;
+    runBtn.classList.add('running');
+    runBtn.textContent='⏸ Executando';
+    runSetState('Executando...');
+    runPrint('Início da execução.', 'interpreter');
+
+    const visited=new Map();
+    let currentId=start.id;
+    let steps=0;
+    const MAX_STEPS=5000;
+
+    try{
+      while(currentId){
+        if(execution.stopped) throw new Error('Execução interrompida.');
+        if(++steps>MAX_STEPS) throw new Error('O programa excedeu 5000 passos. Verifique se existe um loop infinito.');
+        visited.set(currentId,(visited.get(currentId)||0)+1);
+        const node=getNode(currentId);
+        if(!node) throw new Error(`Bloco ${currentId} não encontrado.`);
+        const result=await runStepNode(node);
+        if(result.kind==='end'){
+          runSetState('Execução concluída.');
+          runPrint('✓ Fluxograma finalizado.', 'success interpreter');
+          break;
+        }
+        if(!result.next) throw new Error(`O bloco "${node.text || node.type}" não possui uma próxima conexão.`);
+        currentId=result.next;
+      }
+    }catch(err){
+      if(!execution.stopped){
+        runSetState('Erro na execução.');
+        runPrint('Erro: '+err.message, 'error');
+      }
+    }finally{
+      execution.running=false;
+      execution.waitInput=null;
+      runInputArea.hidden=true;
+      runClearHighlight();
+      runBtn.classList.remove('running');
+      runBtn.textContent='▶ Executar';
+    }
+  }
+
+  runSendBtn.onclick=()=>{
+    if(!execution.waitInput) return;
+    const raw=runInput.value;
+    const waiter=execution.waitInput;
+    execution.waitInput=null;
+    waiter.resolve(runParseInput(raw));
+  };
+
+  runInput.addEventListener('keydown',e=>{
+    if(e.key==='Enter') runSendBtn.click();
+  });
+
+  runStopBtn.onclick=runStop;
+  runCloseBtn.onclick=runClose;
+  runRestartBtn.onclick=()=>{
+    execution.stopped=true;
+    if(execution.waitInput){ execution.waitInput.reject(new Error('Execução reiniciada.')); execution.waitInput=null; }
+    execution.running=false;
+    runInputArea.hidden=true;
+    state.executionId=null;
+    runOutput.innerHTML='';
+    render();
+    setTimeout(()=>runProgram(),0);
+  };
+  runBtn.onclick=()=>{
+    runOpen();
+    runProgram();
+  };
+  runOverlay.addEventListener('click',e=>{ if(e.target===runOverlay) runClose(); });
 
 
   const openFileEl=document.getElementById('openFile');
