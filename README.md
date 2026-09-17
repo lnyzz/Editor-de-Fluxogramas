@@ -1,10 +1,10 @@
 # Editor de Fluxogramas
 
-Editor visual de fluxogramas desenvolvido em **HTML, CSS e JavaScript**, utilizando **SVG** para a representação dos elementos.
+Editor visual de fluxogramas desenvolvido em **HTML, CSS e JavaScript**, utilizando **SVG** para representar os elementos.
 
-O projeto permite criar, editar, organizar, salvar e executar fluxogramas de forma simples e visual, sendo especialmente voltado para os exercícios de **Lógica de Programação**.
+O projeto permite criar, editar, organizar, salvar e **executar fluxogramas**, sendo especialmente voltado para exercícios de **Lógica de Programação**.
 
-<img width="1900" height="934" alt="image" src="https://github.com/user-attachments/assets/9051b876-0735-42c8-8a83-1d1ca2aa56fb" />
+<img width="1900" height="934" alt="Editor de Fluxogramas" src="https://github.com/user-attachments/assets/9051b876-0735-42c8-8a83-1d1ca2aa56fb" />
 
 ---
 
@@ -12,111 +12,83 @@ O projeto permite criar, editar, organizar, salvar e executar fluxogramas de for
 
 ### 👀 Quer apenas visualizar os exercícios resolvidos?
 
-Os exercícios resolvidos estão organizados na pasta [`Exercícios`](./Exercícios), separados por lista.
+Os exercícios estão na pasta [`Exercícios`](./Exercícios), separados por lista.
 
-Entre na lista desejada e abra o arquivo **PNG** do exercício que deseja visualizar.
+Os arquivos **PNG** servem para visualizar as resoluções. Dentro de cada lista, a pasta **`json`** contém os arquivos que podem ser abertos e editados no editor.
 
-👉 **[Acessar os exercícios resolvidos](./Exercícios)**
+👉 **[Acessar os exercícios](./Exercícios)**
 
 **OBS:** Qualquer erro encontrado nas minhas resoluções, peço que me avise.
 
 ### 🛠️ Quer utilizar o Editor de Fluxogramas?
 
-Você pode utilizar a ferramenta diretamente pelo navegador, sem precisar instalar nada:
+Acesse diretamente pelo navegador:
 
-👉 **[Acessar o Editor de Fluxogramas](https://editor-fluxogramas.free.nf/)**
+👉 **[Editor de Fluxogramas](https://editor-fluxogramas.free.nf/)**
 
-Ou, se preferir, pode executar o projeto localmente seguindo as instruções abaixo.
-
----
-
-## 📚 Exercícios resolvidos
-
-Os exercícios estão organizados por listas dentro da pasta [`Exercícios`](./Exercícios).
-
-Cada lista possui os fluxogramas resolvidos em **PNG** e uma pasta **`json`** contendo os arquivos dos projetos correspondentes.
-
-### 🖼️ PNG — Visualização
-
-Os arquivos `.png` ficam diretamente dentro da pasta de cada lista e servem para **visualizar rapidamente** os fluxogramas resolvidos.
-
-Exemplo:
-
-```text
-Exercícios/
-└── Lista-01/
-    ├── Exercício-01.png
-    ├── Exercício-02.png
-    ├── Exercício-03.png
-    └── ...
-```
-
-### 📄 JSON — Abrir e editar
-
-Dentro de cada lista existe uma pasta chamada **`json`**, contendo os arquivos dos projetos dos exercícios.
-
-Os arquivos `.json` podem ser importados diretamente no Editor de Fluxogramas para visualizar, editar ou continuar trabalhando no exercício.
-
-Exemplo:
-
-```text
-Exercícios/
-└── Lista-01/
-    ├── Exercício-01.png
-    ├── Exercício-02.png
-    ├── ...
-    └── json/
-        ├── Exercício-01.json
-        ├── Exercício-02.json
-        └── ...
-```
-
-### Como abrir um exercício no editor
-
-1. Acesse a pasta [`Exercícios`](./Exercícios).
-2. Entre na lista desejada, como `Lista-01` ou `Lista-02`.
-3. Para apenas visualizar a resolução, abra o arquivo `.png`.
-4. Para abrir e editar o fluxograma, entre na pasta `json`.
-5. Baixe o arquivo `.json` correspondente.
-6. Acesse o [Editor de Fluxogramas](https://editor-fluxogramas.free.nf/).
-7. Utilize a opção **Abrir**.
-8. Selecione o arquivo `.json` baixado.
-
-O fluxograma será carregado diretamente no editor.
+Ou execute o projeto localmente.
 
 ---
-<img width="1896" height="976" alt="image" src="https://github.com/user-attachments/assets/16d61c42-e3b6-43b7-b95c-25ba87b6ae54" />
 
 ## ✨ Funcionalidades
 
 * Criação e edição visual de fluxogramas
 * Conexões entre os elementos
-* Condicionais com ramificações
-* Conectores para unir diferentes caminhos
-* Edição dos textos dos elementos
-* Movimentação dos elementos
-* Salvamento automático do projeto
-* Importação e exportação de projetos em **JSON**
-* Exportação dos fluxogramas para **SVG e PNG**
-* Execução dos fluxogramas através de um **interpretador**
-* Validação de variáveis, expressões e estrutura do fluxograma
-* Execução com acompanhamento visual dos blocos
+* Edição dos textos e movimentação dos blocos
+* Salvamento automático
+* Importação e exportação em **JSON**
+* Exportação para **SVG e PNG**
+* Suporte a **celulares e tablets**
+* **Condicional** para criar caminhos verdadeiro e falso
+* **Conector** para unir novamente os caminhos
+* **Interpretador** para executar e testar o fluxograma
+
+### ▶️ Interpretador
+
+O interpretador permite executar o fluxograma diretamente no editor, recebendo entradas, realizando cálculos, avaliando condições e mostrando os resultados no console.
+
+Ele também identifica erros, como variáveis não declaradas e problemas na estrutura do fluxograma.
+
+<img width="1896" height="976" alt="Interpretador" src="https://github.com/user-attachments/assets/16d61c42-e3b6-43b7-b95c-25ba87b6ae54" />
+
+O console fica na lateral e pode ser **redimensionado** para aumentar ou diminuir seu espaço.
+
+---
+
+## 📚 Exercícios resolvidos
+
+Os exercícios são organizados por listas:
+
+```text
+Exercícios/
+├── Lista-01/
+│   ├── Exercício-01.png
+│   ├── Exercício-02.png
+│   └── json/
+│       ├── Exercício-01.json
+│       └── Exercício-02.json
+│
+└── Lista-02/
+    ├── Exercício-01.png
+    ├── Exercício-02.png
+    └── json/
+        ├── Exercício-01.json
+        └── Exercício-02.json
+```
+
+Os **PNG** são para visualização. Os **JSON** podem ser importados no editor para abrir, editar e executar os fluxogramas.
 
 ---
 
 ## 🤖 Auxílio de IA
 
-Os fluxogramas criados pelo editor podem ser salvos em formato **JSON**. Isso permite utilizar um fluxograma já resolvido como exemplo para ensinar uma IA a seguir o mesmo padrão de estrutura utilizado pelo projeto.
+Como os fluxogramas são salvos em **JSON**, é possível fornecer um exemplo de exercício resolvido para uma IA e pedir que ela gere outro JSON seguindo o mesmo padrão.
 
-Por exemplo, você pode fornecer à IA um JSON de um exercício já resolvido e solicitar:
+Exemplo:
 
 > "Este é o JSON de um exercício já resolvido. Entenda o padrão utilizado e gere o JSON para o exercício a seguir."
 
-Em seguida, informe o novo exercício.
-
-A IA poderá gerar um novo arquivo JSON seguindo a estrutura utilizada pelo editor. Esse arquivo pode ser importado diretamente na ferramenta para visualizar, editar e executar o fluxograma.
-
-> **Dica:** fornecer mais de um exercício resolvido como exemplo pode ajudar a IA a identificar melhor o padrão utilizado.
+O arquivo gerado pode ser importado diretamente no editor.
 
 ---
 
@@ -134,23 +106,14 @@ A IA poderá gerar um novo arquivo JSON seguindo a estrutura utilizada pelo edit
 
 O projeto não necessita de instalação de dependências.
 
-Clone o repositório:
-
 ```bash
 git clone https://github.com/lnyzz/Editor-de-Fluxogramas.git
-```
-
-Entre na pasta:
-
-```bash
 cd Editor-de-Fluxogramas
 ```
 
-Depois, basta abrir o arquivo `index.html` no navegador.
+Depois, abra o arquivo `index.html` no navegador.
 
-### 🌐 Alternativa
-
-Se não quiser baixar o projeto, utilize diretamente a versão online:
+### 🌐 Versão online
 
 👉 **https://editor-fluxogramas.free.nf/**
 
@@ -158,43 +121,7 @@ Se não quiser baixar o projeto, utilize diretamente a versão online:
 
 ## 🎯 Objetivo
 
-O objetivo do projeto é facilitar a **criação, organização, visualização e execução de fluxogramas**, tornando mais prática a resolução dos exercícios de lógica de programação.
-
----
-
-## 📂 Estrutura do projeto
-
-```text
-Editor-de-Fluxogramas/
-│
-├── index.html
-│
-├── Exercícios/
-│   │
-│   ├── Lista-01/
-│   │   ├── Exercício-01.png
-│   │   ├── Exercício-02.png
-│   │   ├── Exercício-03.png
-│   │   ├── ...
-│   │   └── json/
-│   │       ├── Exercício-01.json
-│   │       ├── Exercício-02.json
-│   │       ├── Exercício-03.json
-│   │       └── ...
-│   │
-│   └── Lista-02/
-│       ├── Exercício-01.png
-│       ├── Exercício-02.png
-│       ├── Exercício-03.png
-│       ├── ...
-│       └── json/
-│           ├── Exercício-01.json
-│           ├── Exercício-02.json
-│           ├── Exercício-03.json
-│           └── ...
-│
-└── ...
-```
+Facilitar a **criação, visualização e execução de fluxogramas** para os estudos de **Lógica de Programação**.
 
 ---
 
