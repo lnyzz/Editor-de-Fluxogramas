@@ -1,0 +1,278 @@
+{
+  "version": 1,
+  "app": "Editor de Fluxogramas",
+  "savedAt": "2026-09-09T21:01:14.607Z",
+  "nodes": [
+    {
+      "id": "1",
+      "type": "inicio",
+      "x": 625,
+      "y": 60,
+      "w": 150,
+      "h": 58,
+      "text": "Início",
+      "font": 25,
+      "manualPosition": true,
+      "rx": 29
+    },
+    {
+      "id": "2",
+      "type": "entrada",
+      "x": 580,
+      "y": 315,
+      "w": 311,
+      "h": 85,
+      "text": "\"Digite o valor do produto 1: \"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "3",
+      "type": "entrada",
+      "x": 670,
+      "y": 530,
+      "w": 311,
+      "h": 85,
+      "text": "\"Digite o valor do produto 2: \"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "4",
+      "type": "entrada",
+      "x": 670,
+      "y": 760,
+      "w": 311,
+      "h": 85,
+      "text": "\"Digite o valor do produto 3: \"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "5",
+      "type": "entrada",
+      "x": 805,
+      "y": 965,
+      "w": 311,
+      "h": 85,
+      "text": "\"Digite o valor do produto 4: \"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "6",
+      "type": "entrada",
+      "x": 810,
+      "y": 1165,
+      "w": 311,
+      "h": 85,
+      "text": "\"Digite o valor do produto 5: \"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "7",
+      "type": "processo",
+      "x": 780,
+      "y": 1375,
+      "w": 421,
+      "h": 81,
+      "text": "total = produto1 + produto2 + produto3 + produto4 + produto5",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "8",
+      "type": "entrada",
+      "x": 670,
+      "y": 1490,
+      "w": 311,
+      "h": 85,
+      "text": "\"Digite o valor do pagamento: \"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "9",
+      "type": "processo",
+      "x": 525,
+      "y": 1715,
+      "w": 358.5,
+      "h": 58,
+      "text": "troco = pagamento - total",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "10",
+      "type": "entrada",
+      "x": 535,
+      "y": 1810,
+      "w": 386,
+      "h": 85,
+      "text": "\"O troco a devolver é R$ \", troco",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "11",
+      "type": "inicio",
+      "x": 650,
+      "y": 1920,
+      "w": 150,
+      "h": 58,
+      "text": "Fim",
+      "font": 25,
+      "manualPosition": true,
+      "rx": 29
+    },
+    {
+      "id": "n1",
+      "type": "processo",
+      "x": 565,
+      "y": 155,
+      "w": 408.5,
+      "h": 110.5,
+      "text": "produto1, produto2, produto3, produto4, produto5, total, pagamento, troco",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n2",
+      "type": "variavel",
+      "x": 705,
+      "y": 425,
+      "w": 166,
+      "h": 72,
+      "text": "produto1",
+      "font": 27,
+      "manualPosition": false
+    },
+    {
+      "id": "n3",
+      "type": "variavel",
+      "x": 785,
+      "y": 645,
+      "w": 166,
+      "h": 72,
+      "text": "produto2",
+      "font": 27,
+      "manualPosition": false
+    },
+    {
+      "id": "n4",
+      "type": "variavel",
+      "x": 785,
+      "y": 870,
+      "w": 166,
+      "h": 72,
+      "text": "produto3",
+      "font": 27,
+      "manualPosition": false
+    },
+    {
+      "id": "n5",
+      "type": "variavel",
+      "x": 880,
+      "y": 1070,
+      "w": 166,
+      "h": 72,
+      "text": "produto4",
+      "font": 27,
+      "manualPosition": false
+    },
+    {
+      "id": "n6",
+      "type": "variavel",
+      "x": 940,
+      "y": 1270,
+      "w": 166,
+      "h": 72,
+      "text": "produto5",
+      "font": 27,
+      "manualPosition": false
+    },
+    {
+      "id": "n7",
+      "type": "variavel",
+      "x": 680,
+      "y": 1610,
+      "w": 179.5,
+      "h": 72,
+      "text": "pagamento",
+      "font": 27,
+      "manualPosition": false
+    }
+  ],
+  "links": [
+    {
+      "from": "7",
+      "to": "8"
+    },
+    {
+      "from": "9",
+      "to": "10"
+    },
+    {
+      "from": "10",
+      "to": "11"
+    },
+    {
+      "from": "1",
+      "to": "n1"
+    },
+    {
+      "from": "2",
+      "to": "n2"
+    },
+    {
+      "from": "n2",
+      "to": "3"
+    },
+    {
+      "from": "3",
+      "to": "n3"
+    },
+    {
+      "from": "n3",
+      "to": "4"
+    },
+    {
+      "from": "4",
+      "to": "n4"
+    },
+    {
+      "from": "n4",
+      "to": "5"
+    },
+    {
+      "from": "5",
+      "to": "n5"
+    },
+    {
+      "from": "n5",
+      "to": "6"
+    },
+    {
+      "from": "6",
+      "to": "n6"
+    },
+    {
+      "from": "n6",
+      "to": "7"
+    },
+    {
+      "from": "n1",
+      "to": "2"
+    },
+    {
+      "from": "n7",
+      "to": "9"
+    },
+    {
+      "from": "8",
+      "to": "n7"
+    }
+  ],
+  "nextId": 8
+}
