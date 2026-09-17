@@ -46,7 +46,7 @@ O interpretador permite executar o fluxograma diretamente no editor, recebendo e
 
 Ele também identifica erros, como variáveis não declaradas e problemas na estrutura do fluxograma.
 
-https://github.com/user-attachments/assets/d3c93a59-0564-4172-bde0-8dc2ef75275b
+https://github.com/user-attachments/assets/9f08119d-3cd4-45ef-9eb1-de2c63798f20
 
 O console fica na lateral e pode ser **redimensionado** para aumentar ou diminuir seu espaço.
 
