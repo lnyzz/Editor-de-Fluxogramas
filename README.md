@@ -12,7 +12,7 @@ O projeto permite criar, editar, organizar, salvar e **executar fluxogramas**, s
 
 ### 👀 Quer apenas visualizar os exercícios resolvidos?
 
-Os exercícios estão na pasta [`Exercícios`](./Exercícios), separados por lista.
+Os exercícios estão na pasta [`Exercícios`](./Exercícios), separados por listas.
 
 Os arquivos **PNG** servem para visualizar as resoluções. Dentro de cada lista, a pasta **`json`** contém os arquivos que podem ser abertos e editados no editor.
 
