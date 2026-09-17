@@ -33,14 +33,11 @@ Ou execute o projeto localmente.
 ## ✨ Funcionalidades
 
 * Criação e edição visual de fluxogramas
-* Conexões entre os elementos
 * Edição dos textos e movimentação dos blocos
 * Salvamento automático
 * Importação e exportação em **JSON**
 * Exportação para **SVG e PNG**
 * Suporte a **celulares e tablets**
-* **Condicional** para criar caminhos verdadeiro e falso
-* **Conector** para unir novamente os caminhos
 * **Interpretador** para executar e testar o fluxograma
 
 ### ▶️ Interpretador
@@ -122,7 +119,3 @@ Depois, abra o arquivo `index.html` no navegador.
 ## 🎯 Objetivo
 
 Facilitar a **criação, visualização e execução de fluxogramas** para os estudos de **Lógica de Programação**.
-
----
-
-Desenvolvido para auxiliar nos estudos de **Lógica de Programação**.
