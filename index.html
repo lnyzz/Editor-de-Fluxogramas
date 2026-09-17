@@ -14,6 +14,7 @@
     --accent:#2563eb;
     --danger:#dc2626;
     --node-fill:#eef1f5;
+    --side-panel-width:440px;
   }
   *{box-sizing:border-box}
   html,body{height:100%;margin:0}
@@ -50,7 +51,7 @@
   button.danger{color:#fff;background:var(--danger);border-color:var(--danger)}
   .workspace{
     display:grid;
-    grid-template-columns:220px 1fr 280px;
+    grid-template-columns:220px 1fr var(--side-panel-width);
     min-height:0;
   }
   .sidebar,.inspector{
@@ -59,7 +60,7 @@
     overflow:auto;
   }
   .sidebar{border-right:1px solid var(--border);padding:14px}
-  .inspector{border-left:1px solid var(--border);padding:14px}
+  .inspector{border-left:1px solid var(--border);padding:14px;box-shadow:-6px 0 20px rgba(0,0,0,.08);border-radius:0}
   .section-title{
     font-size:12px;text-transform:uppercase;letter-spacing:.08em;
     font-weight:800;color:var(--muted);margin:2px 0 10px;
@@ -148,21 +149,34 @@
     border-radius:8px;padding:7px 10px;font-size:12px;opacity:.9
   }
   .tiny{font-size:11px;color:var(--muted);margin-top:5px}
+  .execution-speed-box{padding:0 0 14px;margin-bottom:14px;border-bottom:1px solid var(--border)}
+  .execution-speed-box label{margin-top:0}
+  .execution-speed-row{display:flex;align-items:center;gap:8px}
+  .execution-speed-row input{flex:1;min-width:0}
+  .execution-speed-row span{font-size:13px;color:var(--muted);font-weight:600}
 
 
-  .run-btn{font-weight:700}
+  .run-btn{font:inherit;font-weight:700}
+  .run-execute{background:#16a34a;color:#fff;border-color:#16a34a}
+  .run-execute:hover{background:#15803d;border-color:#15803d}
+  .run-debug{background:#2563eb;color:#fff;border-color:#2563eb}
+  .run-debug:hover{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
+  .run-execute.running{background:#15803d;color:#fff;border-color:#15803d}
+  #runStepBtn{font:inherit;font-weight:400}
+  #runStepBtn:disabled{opacity:.55;cursor:default}
+  #runRestartBtn{background:#f59e0b;color:#fff;border-color:#f59e0b}
+  #runRestartBtn:hover{background:#d97706;color:#fff;border-color:#d97706}
 
   body.running-console .inspector{visibility:hidden}
   body.running-console .run-overlay{visibility:visible}
-  .run-btn.running{background:#f3f4f6;color:#111;border-color:#d7dce2}
-  .run-overlay{position:fixed;top:58px;right:0;bottom:0;width:var(--run-panel-width,280px);z-index:1000;display:flex;align-items:stretch;justify-content:stretch;padding:0;pointer-events:none}
+  .run-overlay{position:fixed;top:58px;right:0;bottom:0;width:var(--run-panel-width,var(--side-panel-width));z-index:1000;display:flex;align-items:stretch;justify-content:stretch;padding:0;pointer-events:none}
   .run-resize-handle{position:absolute;left:-4px;top:0;bottom:0;width:9px;cursor:ew-resize;z-index:5;pointer-events:auto;touch-action:none}
   .run-resize-handle::after{content:'';position:absolute;left:3px;top:50%;width:3px;height:48px;transform:translateY(-50%);border-radius:3px;background:#d7dce2;opacity:0;transition:opacity .15s}
   .run-panel:hover .run-resize-handle::after,.run-resize-handle.dragging::after{opacity:1}
   .run-overlay[hidden]{display:none}
-  .run-panel{width:100%;height:100%;display:flex;flex-direction:column;background:#fff;border-left:1px solid var(--border);border-radius:0;box-shadow:-6px 0 20px rgba(0,0,0,.08);overflow:hidden;pointer-events:auto}
+  .run-panel{width:100%;height:100%;display:flex;flex-direction:column;background:#fff;border-left:1px solid var(--border);border-radius:0;box-shadow:none;overflow:hidden;pointer-events:auto}
   .run-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border)}
-  .run-state{font-size:12px;color:var(--muted);margin-top:3px}
+  .run-state{display:none}
   .run-output{min-height:150px;max-height:260px;overflow:auto;padding:14px 16px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:13px;line-height:1.55;background:#f8fafc;white-space:pre-wrap;word-break:break-word}
   .run-line{margin:0 0 8px}
   .run-line.program{color:#111827;background:#ffffff;border-left:3px solid #d1d5db;padding:6px 9px;border-radius:6px}
@@ -180,7 +194,7 @@
   @media (max-width:800px){
     .run-overlay{top:auto;left:0;right:0;bottom:0;width:100%;height:230px;padding:0;align-items:stretch}
     .run-resize-handle{display:none}
-    .run-panel{width:100%;height:100%;border-left:0;border-top:1px solid var(--border);border-radius:0;box-shadow:0 -6px 20px rgba(0,0,0,.08)}
+    .run-panel{width:100%;height:100%;border-left:0;border-top:1px solid var(--border);border-radius:0;box-shadow:none}
     .run-output{min-height:180px;max-height:42vh}
     .run-input-row{align-items:stretch}
     .run-input-row input,.run-input-row button{min-height:44px}
@@ -293,6 +307,8 @@
       border-left:0;
       border-top:1px solid var(--border);
       padding:9px 10px;
+      box-shadow:0 -6px 20px rgba(0,0,0,.08);
+      border-radius:0;
       max-height:230px;
       overflow:auto;
       -webkit-overflow-scrolling:touch;
@@ -324,9 +340,10 @@
   <header>
     <div class="brand">Editor de Fluxogramas</div>
     <button id="openBtn">Abrir</button>
-    <button id="saveBtn" class="primary">Salvar</button>
+    <button id="saveBtn">Salvar</button>
     <button id="newBtn">Novo</button>
-    <button id="runBtn" class="run-btn">▶ Executar</button>
+    <button id="runBtn" class="run-btn run-execute">▶ Executar</button>
+    <button id="debugBtn" class="run-btn run-debug">Depurar</button>
     <input id="openFile" type="file" accept=".json,application/json" hidden>
     <div class="export-menu">
       <button id="exportBtn">Exportar ▾</button>
@@ -422,6 +439,14 @@
 
     <aside class="inspector" id="inspector">
       <div class="section-title">Propriedades</div>
+      <div class="execution-speed-box">
+        <label for="executionSpeed">Delay de execução</label>
+        <div class="execution-speed-row">
+          <input id="executionSpeed" type="number" min="0" max="3000" step="50" value="500" inputmode="numeric" aria-describedby="executionSpeedHint">
+          <span>ms</span>
+        </div>
+        <div id="executionSpeedHint" class="tiny">Delay entre cada instrução. 0 ms = execução instantânea.</div>
+      </div>
       <div id="inspectorContent" class="empty">
         Selecione um bloco para editar sua função e o texto. Dois cliques no bloco focam o campo de texto.
       </div>
@@ -435,7 +460,7 @@
     <div class="run-header">
       <div>
         <strong id="runTitle">Execução do fluxograma</strong>
-        <div id="runState" class="run-state">Preparando...</div>
+        <div id="runState" class="run-state">Console de execução</div>
       </div>
       <button id="runCloseBtn" class="run-close" type="button">Fechar</button>
     </div>
@@ -444,11 +469,12 @@
       <label id="runPromptLabel" for="runInput">Digite um valor:</label>
       <div class="run-input-row">
         <input id="runInput" type="text" autocomplete="off" inputmode="decimal">
-        <button id="runSendBtn" class="primary" type="button">Enviar</button>
+        <button id="runSendBtn" type="button">Enviar</button>
       </div>
     </div>
     <div class="run-footer">
-      <button id="runStopBtn" class="danger" type="button">Parar</button>
+      <button id="runStepBtn" type="button" hidden>Próximo</button>
+      <button id="runStopBtn" class="danger" type="button" hidden>Parar</button>
       <button id="runRestartBtn" type="button">Reiniciar</button>
     </div>
   </div>
@@ -1400,14 +1426,26 @@
   const runCloseBtn=document.getElementById('runCloseBtn');
   const runState=document.getElementById('runState');
   const runBtn=document.getElementById('runBtn');
+  const debugBtn=document.getElementById('debugBtn');
+  const runStepBtn=document.getElementById('runStepBtn');
+  const executionSpeedInput=document.getElementById('executionSpeed');
+  const DEFAULT_EXECUTION_SPEED=500;
   const runResizeHandle=document.getElementById('runResizeHandle');
   let runResize=null;
 
+  function getExecutionDelay(){
+    const value=Number(executionSpeedInput?.value);
+    if(!Number.isFinite(value)) return DEFAULT_EXECUTION_SPEED;
+    return Math.max(0, Math.min(3000, Math.round(value / 50) * 50));
+  }
+
   function setRunPanelWidth(width){
-    const min=260;
+    const min=360;
     const max=Math.min(520, Math.max(320, window.innerWidth * 0.55));
     const w=Math.max(min, Math.min(max, width));
-    runOverlay.style.setProperty('--run-panel-width', `${Math.round(w)}px`);
+    const px=`${Math.round(w)}px`;
+    runOverlay.style.setProperty('--run-panel-width', px);
+    document.documentElement.style.setProperty('--side-panel-width', px);
   }
 
   runResizeHandle.addEventListener('pointerdown', e=>{
@@ -1441,11 +1479,14 @@
   const execution={
     running:false,
     stopped:false,
+    debugging:false,
     currentNode:null,
     waitInput:null,
     vars:Object.create(null),
     lastPrompt:'',
-    startId:null
+    startId:null,
+    debugNextId:null,
+    debugWaitingInput:false
   };
 
   function runEscapeHtml(s){
@@ -1460,10 +1501,18 @@
     runOutput.scrollTop=runOutput.scrollHeight;
   }
 
-  function runSetState(text){ runState.textContent=text; }
+  function runSetState(text){
+    // O estado detalhado deve aparecer no console, não no cabeçalho.
+    if(text && text !== 'Executando...' && text !== 'Erro' && text !== 'Preparando...') {
+      // Evita duplicar mensagens de conclusão/erro que já são impressas diretamente.
+      if(!runOutput.lastElementChild || runOutput.lastElementChild.textContent !== String(text)) {
+        runPrint(text, 'interpreter');
+      }
+    }
+  }
 
   function runOpen(){
-    if(!runOverlay.style.getPropertyValue('--run-panel-width')) setRunPanelWidth(Math.min(320, window.innerWidth*0.32));
+    if(!runOverlay.style.getPropertyValue('--run-panel-width')) setRunPanelWidth(Math.max(440, Math.min(520, window.innerWidth*0.45)));
     runOverlay.hidden=false;
     document.body.classList.add('running-console');
     runOutput.innerHTML='';
@@ -1471,8 +1520,14 @@
     runInput.value='';
     execution.running=false;
     execution.stopped=false;
+    execution.debugging=false;
     execution.currentNode=null;
+    execution.debugNextId=null;
+    execution.debugWaitingInput=false;
     state.executionId=null;
+    runStepBtn.hidden=true;
+    runStepBtn.disabled=true;
+    runStopBtn.hidden=true;
     render();
     runPrint('Clique em Executar para iniciar o fluxograma.');
   }
@@ -1486,8 +1541,14 @@
   function runClose(){
     execution.stopped=true;
     execution.running=false;
+    execution.debugging=false;
     execution.waitInput=null;
+    execution.debugNextId=null;
+    execution.debugWaitingInput=false;
     runInputArea.hidden=true;
+    runStepBtn.hidden=true;
+    runStepBtn.disabled=true;
+    runStopBtn.hidden=true;
     runClearHighlight();
     runOverlay.hidden=true;
     document.body.classList.remove('running-console');
@@ -1498,6 +1559,9 @@
   function runStop(){
     execution.stopped=true;
     execution.running=false;
+    execution.debugging=false;
+    execution.debugNextId=null;
+    execution.debugWaitingInput=false;
     if(execution.waitInput){
       execution.waitInput.reject(new Error('Execução interrompida pelo usuário.'));
       execution.waitInput=null;
@@ -1505,6 +1569,9 @@
     runInputArea.hidden=true;
     runSetState('Execução interrompida.');
     runPrint('Execução interrompida.', 'error');
+    runStepBtn.hidden=true;
+    runStepBtn.disabled=true;
+    runStopBtn.hidden=true;
     runClearHighlight();
     runBtn.classList.remove('running');
     runBtn.textContent='▶ Executar';
@@ -1704,6 +1771,7 @@
     runPromptLabel.textContent=prompt || `Digite ${variable}:`;
     runInput.value='';
     runInputArea.hidden=false;
+    if(execution.debugging) execution.debugWaitingInput=true;
     runInput.focus();
     runSetState(`Aguardando valor para ${variable}`);
     return new Promise((resolve,reject)=>{
@@ -1715,7 +1783,7 @@
     execution.currentNode=node.id;
     state.executionId=node.id;
     render();
-    await runSleep(320);
+    await runSleep(getExecutionDelay());
     if(execution.stopped) throw new Error('Execução interrompida.');
 
     if(node.type==='inicio'){
@@ -1776,13 +1844,45 @@
     visited.add(nodeId);
     const node=getNode(nodeId);
     if(!node) return new Set();
-    if(node.type==='conector') return new Set([nodeId]);
 
     const result=new Set();
+
+    // Um conector é um ponto de junção, mas o fluxo pode continuar
+    // depois dele até outro conector. Isso é importante quando há
+    // condicionais aninhados ou quando dois caminhos usam mais de um
+    // conector antes de se unirem definitivamente.
+    if(node.type==='conector') result.add(nodeId);
+
     for(const {l} of runOutgoing(nodeId)){
       for(const id of runFindReachableConnectors(l.to, new Set(visited))) result.add(id);
     }
     return result;
+  }
+
+  function runConnectorDistances(startId){
+    const distances=new Map();
+    if(!startId) return distances;
+
+    const queue=[[startId,0]];
+    const seen=new Set([startId]);
+
+    while(queue.length){
+      const [nodeId,distance]=queue.shift();
+      const node=getNode(nodeId);
+      if(!node) continue;
+
+      if(node.type==='conector' && !distances.has(nodeId)){
+        distances.set(nodeId,distance);
+      }
+
+      for(const {l} of runOutgoing(nodeId)){
+        if(!l?.to || seen.has(l.to)) continue;
+        seen.add(l.to);
+        queue.push([l.to,distance+1]);
+      }
+    }
+
+    return distances;
   }
 
   function runValidateConditionalConnectors(errors){
@@ -1793,20 +1893,38 @@
 
       if(!left || !right) continue;
 
-      const leftConnectors=runFindReachableConnectors(left.to);
-      const rightConnectors=runFindReachableConnectors(right.to);
-      const common=[...leftConnectors].filter(id=>rightConnectors.has(id));
+      const leftDistances=runConnectorDistances(left.to);
+      const rightDistances=runConnectorDistances(right.to);
+      const common=[...leftDistances.keys()]
+        .filter(id=>rightDistances.has(id))
+        .sort((a,b)=>{
+          const da=Math.max(leftDistances.get(a),rightDistances.get(a));
+          const db=Math.max(leftDistances.get(b),rightDistances.get(b));
+          if(da!==db) return da-db;
+          return (leftDistances.get(a)+rightDistances.get(a)) -
+                 (leftDistances.get(b)+rightDistances.get(b));
+        });
 
       if(common.length===0){
         errors.push(`O Condicional "${conditional.text}" precisa de um Conector para unir os caminhos da esquerda e da direita antes de continuar o fluxo.`);
         continue;
       }
 
-      if(common.length>1){
-        errors.push(`O Condicional "${conditional.text}" alcança mais de um Conector comum aos dois caminhos. Deixe apenas um ponto de união.`);
+      // O primeiro Conector comum é o ponto de união do Condicional.
+      // Conectores que aparecem depois dele fazem parte da continuação
+      // do fluxo e não devem causar um falso erro em condicionais aninhados.
+      const connectorId=common[0];
+      const sameDistance=common.filter(id=>{
+        const d=Math.max(leftDistances.get(id),rightDistances.get(id));
+        const firstD=Math.max(leftDistances.get(connectorId),rightDistances.get(connectorId));
+        return d===firstD;
+      });
+
+      if(sameDistance.length>1){
+        errors.push(`O Condicional "${conditional.text}" possui mais de um ponto de união possível no mesmo nível. Verifique os caminhos antes do Conector.`);
+        continue;
       }
 
-      const connectorId=common[0];
       const incoming=state.links.filter(l=>l.to===connectorId);
       if(incoming.length!==2){
         errors.push(`O Conector após o Condicional "${conditional.text}" deve receber exatamente duas conexões, uma de cada caminho.`);
@@ -1926,6 +2044,128 @@
     if(errors.length) throw new Error([...new Set(errors)].slice(0,10).join(' | ')+(errors.length>10?` | E mais ${errors.length-10} erro(s).`:''));
   }
 
+  function debugPrepare(){
+    if(execution.running) return;
+    const start=runFindStart();
+    if(!start){
+      runSetState('Erro');
+      runPrint('Não encontrei um bloco Início.', 'error');
+      return;
+    }
+    try{
+      runValidateProgram(start);
+    }catch(err){
+      runSetState('Erro de validação.');
+      runPrint('Erro de validação: '+err.message, 'error');
+      return;
+    }
+
+    execution.running=true;
+    execution.stopped=false;
+    execution.debugging=true;
+    execution.vars=Object.create(null);
+    execution.lastPrompt='';
+    execution.startId=start.id;
+    execution.debugNextId=start.id;
+    execution.debugWaitingInput=false;
+    runOutput.innerHTML='';
+    runInputArea.hidden=true;
+    runStepBtn.hidden=false;
+    runStepBtn.disabled=false;
+    runStopBtn.hidden=false;
+    runBtn.classList.add('running');
+    runBtn.textContent='⏸ Executando';
+    runSetState('Modo debug — clique em "Próximo".');
+    runPrint('Modo debug iniciado. Cada clique executa uma instrução.', 'interpreter');
+    state.executionId=start.id;
+    render();
+  }
+
+  function runDebugResolveNode(startId){
+    let id=startId;
+    const visited=new Set();
+
+    while(id){
+      if(visited.has(id)) throw new Error('Foi encontrada uma sequência de Conectores em ciclo.');
+      visited.add(id);
+
+      const node=getNode(id);
+      if(!node) throw new Error(`Bloco ${id} não encontrado.`);
+
+      // No modo de depuração, o Conector é apenas um ponto de passagem:
+      // ele não consome um clique em "Próximo" e não fica destacado.
+      if(node.type!=='conector') return node.id;
+
+      const outs=runOutgoing(node.id);
+      if(outs.length===0) throw new Error('O Conector não possui uma saída.');
+      if(outs.length>1) throw new Error('O Conector possui mais de uma saída. Deixe apenas uma conexão saindo dele.');
+      id=outs[0].l.to;
+    }
+
+    return null;
+  }
+
+  async function runDebugStep(){
+    if(!execution.debugging || !execution.running || execution.debugWaitingInput) return;
+
+    try{
+      const currentId=runDebugResolveNode(execution.debugNextId);
+      if(!currentId){
+        runFinishDebug();
+        return;
+      }
+
+      const node=getNode(currentId);
+      if(!node) throw new Error(`Bloco ${currentId} não encontrado.`);
+
+      execution.debugNextId=node.id;
+      state.executionId=node.id;
+      execution.currentNode=node.id;
+      runPrint(`Debug: executando → ${node.text || node.type}`, 'interpreter');
+      render();
+
+      if(execution.stopped || !execution.debugging) return;
+
+      const result=await runStepNode(node);
+      if(result.kind==='end'){
+        runSetState('Execução concluída.');
+        runPrint('✓ Fluxograma finalizado.', 'success interpreter');
+        runFinishDebug();
+        return;
+      }
+      if(!result.next) throw new Error(`O bloco "${node.text || node.type}" não possui uma próxima conexão.`);
+
+      const nextId=runDebugResolveNode(result.next);
+      execution.debugNextId=nextId;
+      execution.debugWaitingInput=false;
+      runPrint(`Debug: próximo → ${getNode(nextId)?.text || getNode(nextId)?.type || 'desconhecida'}`, 'interpreter');
+      state.executionId=nextId;
+      render();
+      runStepBtn.disabled=false;
+    }catch(err){
+      if(!execution.stopped){
+        runSetState('Erro na execução.');
+        runPrint('Erro: '+err.message, 'error');
+      }
+      runFinishDebug();
+    }
+  }
+
+  function runFinishDebug(){
+    execution.running=false;
+    execution.debugging=false;
+    execution.waitInput=null;
+    execution.debugNextId=null;
+    execution.debugWaitingInput=false;
+    runInputArea.hidden=true;
+    runStepBtn.hidden=true;
+    runStepBtn.disabled=true;
+    runStopBtn.hidden=true;
+    runClearHighlight();
+    runBtn.classList.remove('running');
+    runBtn.textContent='▶ Executar';
+  }
+
   async function runProgram(){
     if(execution.running) return;
     const start=runFindStart();
@@ -1943,11 +2183,17 @@
     }
     execution.running=true;
     execution.stopped=false;
+    execution.debugging=false;
+    execution.debugNextId=null;
+    execution.debugWaitingInput=false;
     execution.vars=Object.create(null);
     execution.lastPrompt='';
     execution.startId=start.id;
     runOutput.innerHTML='';
     runInputArea.hidden=true;
+    runStepBtn.hidden=true;
+    runStepBtn.disabled=true;
+    runStopBtn.hidden=false;
     runBtn.classList.add('running');
     runBtn.textContent='⏸ Executando';
     runSetState('Executando...');
@@ -1984,6 +2230,7 @@
       execution.waitInput=null;
       runInputArea.hidden=true;
       runClearHighlight();
+      runStopBtn.hidden=true;
       document.body.classList.remove('running-console');
       runBtn.classList.remove('running');
       runBtn.textContent='▶ Executar';
@@ -1995,6 +2242,13 @@
     const raw=runInput.value;
     const waiter=execution.waitInput;
     execution.waitInput=null;
+    runInputArea.hidden=true;
+    if(execution.debugging){
+      execution.debugWaitingInput=false;
+      waiter.resolve(runParseInput(raw));
+      runSetState('Entrada recebida. Clique em "Próximo" para continuar.');
+      return;
+    }
     waiter.resolve(runParseInput(raw));
   };
 
@@ -2002,21 +2256,66 @@
     if(e.key==='Enter') runSendBtn.click();
   });
 
+  executionSpeedInput?.addEventListener('change',()=>{
+    const value=getExecutionDelay();
+    executionSpeedInput.value=String(value);
+    try{
+      localStorage.setItem('editorFluxogramas.executionSpeed', String(value));
+      localStorage.setItem('editorFluxogramas.executionSpeedInitialized', '1');
+    }catch{}
+  });
+
+  try{
+    const speedInitialized=localStorage.getItem('editorFluxogramas.executionSpeedInitialized')==='1';
+    const savedSpeed=Number(localStorage.getItem('editorFluxogramas.executionSpeed'));
+    if(!speedInitialized){
+      executionSpeedInput.value=String(DEFAULT_EXECUTION_SPEED);
+      localStorage.setItem('editorFluxogramas.executionSpeed', String(DEFAULT_EXECUTION_SPEED));
+      localStorage.setItem('editorFluxogramas.executionSpeedInitialized', '1');
+    }else if(savedSpeed===250){
+      executionSpeedInput.value=String(DEFAULT_EXECUTION_SPEED);
+      localStorage.setItem('editorFluxogramas.executionSpeed', String(DEFAULT_EXECUTION_SPEED));
+    }else if(Number.isFinite(savedSpeed)){
+      executionSpeedInput.value=String(Math.max(0, Math.min(3000, Math.round(savedSpeed / 50) * 50)));
+    }else{
+      executionSpeedInput.value=String(DEFAULT_EXECUTION_SPEED);
+    }
+  }catch{
+    executionSpeedInput.value=String(DEFAULT_EXECUTION_SPEED);
+  }
+
   runCloseBtn.onclick=runClose;
   runStopBtn.onclick=runStop;
+  runStepBtn.onclick=runDebugStep;
   runRestartBtn.onclick=()=>{
+    const wasDebug=execution.debugging;
     execution.stopped=true;
     if(execution.waitInput){ execution.waitInput.reject(new Error('Execução reiniciada.')); execution.waitInput=null; }
     execution.running=false;
+    execution.debugging=false;
+    execution.debugNextId=null;
+    execution.debugWaitingInput=false;
     runInputArea.hidden=true;
     state.executionId=null;
     runOutput.innerHTML='';
     render();
-    setTimeout(()=>runProgram(),0);
+    setTimeout(()=>{
+      if(wasDebug){
+        execution.running=false;
+        debugPrepare();
+      }else{
+        runProgram();
+      }
+    },0);
   };
   runBtn.onclick=()=>{
     runOpen();
     runProgram();
+  };
+  debugBtn.onclick=()=>{
+    runOpen();
+    runOutput.innerHTML='';
+    debugPrepare();
   };
   runOverlay.addEventListener('click',e=>{ if(e.target===runOverlay) runClose(); });
 
