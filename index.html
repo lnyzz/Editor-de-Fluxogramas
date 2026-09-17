@@ -1512,7 +1512,8 @@
   }
 
   function runOpen(){
-    if(!runOverlay.style.getPropertyValue('--run-panel-width')) setRunPanelWidth(Math.max(440, Math.min(520, window.innerWidth*0.45)));
+    const sidePanelWidth=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--side-panel-width')) || 440;
+    setRunPanelWidth(sidePanelWidth);
     runOverlay.hidden=false;
     document.body.classList.add('running-console');
     runOutput.innerHTML='';
