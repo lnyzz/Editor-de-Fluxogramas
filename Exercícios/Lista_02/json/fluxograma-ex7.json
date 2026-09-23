@@ -1,0 +1,529 @@
+{
+  "version": 1,
+  "app": "Editor de Fluxogramas",
+  "savedAt": "2026-09-23T10:20:49.137Z",
+  "nodes": [
+    {
+      "id": "n1",
+      "type": "inicio",
+      "x": 600,
+      "y": 60,
+      "w": 150,
+      "h": 58,
+      "text": "Início",
+      "font": 25,
+      "manualPosition": true,
+      "rx": 29
+    },
+    {
+      "id": "n2",
+      "type": "processo",
+      "x": 490,
+      "y": 170,
+      "w": 396,
+      "h": 58,
+      "text": "ladoA, ladoB, ladoC, A, B, C",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n3",
+      "type": "entrada",
+      "x": 450,
+      "y": 290,
+      "w": 386,
+      "h": 85,
+      "text": "\"Digite o primeiro lado: \"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n4",
+      "type": "variavel",
+      "x": 550,
+      "y": 410,
+      "w": 125.5,
+      "h": 72,
+      "text": "ladoA",
+      "font": 27,
+      "manualPosition": true
+    },
+    {
+      "id": "n5",
+      "type": "entrada",
+      "x": 450,
+      "y": 530,
+      "w": 398.5,
+      "h": 78,
+      "text": "\"Digite o segundo lado: \"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n6",
+      "type": "variavel",
+      "x": 550,
+      "y": 650,
+      "w": 125.5,
+      "h": 72,
+      "text": "ladoB",
+      "font": 27,
+      "manualPosition": true
+    },
+    {
+      "id": "n7",
+      "type": "entrada",
+      "x": 450,
+      "y": 770,
+      "w": 386,
+      "h": 85,
+      "text": "\"Digite o terceiro lado: \"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n8",
+      "type": "variavel",
+      "x": 550,
+      "y": 890,
+      "w": 125.5,
+      "h": 72,
+      "text": "ladoC",
+      "font": 27,
+      "manualPosition": true
+    },
+    {
+      "id": "n9",
+      "type": "processo",
+      "x": 485,
+      "y": 985,
+      "w": 258.5,
+      "h": 58,
+      "text": "A = ladoA + ladoB",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n10",
+      "type": "processo",
+      "x": 485,
+      "y": 1060,
+      "w": 258.5,
+      "h": 58,
+      "text": "B = ladoA + ladoC",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n11",
+      "type": "processo",
+      "x": 485,
+      "y": 1135,
+      "w": 258.5,
+      "h": 58,
+      "text": "C = ladoB + ladoC",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n12",
+      "type": "condicional",
+      "x": 480,
+      "y": 1245,
+      "w": 220,
+      "h": 138.5,
+      "text": "A > ladoC && B > ladoB && C > ladoA",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n13",
+      "type": "entrada",
+      "x": 650,
+      "y": 1400,
+      "w": 299,
+      "h": 78,
+      "text": "\"É um triângulo\"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n14",
+      "type": "entrada",
+      "x": -400,
+      "y": 1975,
+      "w": 336,
+      "h": 78,
+      "text": "\"Não é um triângulo\"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n15",
+      "type": "condicional",
+      "x": 720,
+      "y": 1540,
+      "w": 190,
+      "h": 168,
+      "text": "ladoA == ladoB && ladoB == ladoC",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n16",
+      "type": "entrada",
+      "x": 1000,
+      "y": 1670,
+      "w": 299,
+      "h": 78,
+      "text": "\"Equilátero\"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n17",
+      "type": "condicional",
+      "x": 425,
+      "y": 1725,
+      "w": 190,
+      "h": 120,
+      "text": "ladoA == ladoB",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n18",
+      "type": "entrada",
+      "x": 670,
+      "y": 1985,
+      "w": 299,
+      "h": 78,
+      "text": "\"Isósceles\"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n19",
+      "type": "condicional",
+      "x": 235,
+      "y": 1845,
+      "w": 190,
+      "h": 120,
+      "text": "ladoA == ladoC",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n20",
+      "type": "entrada",
+      "x": 340,
+      "y": 1990,
+      "w": 299,
+      "h": 78,
+      "text": "\"Isósceles\"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n21",
+      "type": "condicional",
+      "x": 50,
+      "y": 1970,
+      "w": 190,
+      "h": 120,
+      "text": "ladoB == ladoC",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n22",
+      "type": "entrada",
+      "x": 145,
+      "y": 2145,
+      "w": 299,
+      "h": 78,
+      "text": "\"Isósceles\"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n23",
+      "type": "entrada",
+      "x": -135,
+      "y": 2180,
+      "w": 299,
+      "h": 78,
+      "text": "\"Escaleno\"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n24",
+      "type": "conector",
+      "x": 780,
+      "y": 2475,
+      "w": 40,
+      "h": 40,
+      "text": "",
+      "font": 20,
+      "manualPosition": true
+    },
+    {
+      "id": "n25",
+      "type": "conector",
+      "x": 490,
+      "y": 2400,
+      "w": 40,
+      "h": 40,
+      "text": "",
+      "font": 20,
+      "manualPosition": true
+    },
+    {
+      "id": "n26",
+      "type": "conector",
+      "x": 325,
+      "y": 2325,
+      "w": 40,
+      "h": 40,
+      "text": "",
+      "font": 20,
+      "manualPosition": true
+    },
+    {
+      "id": "n27",
+      "type": "conector",
+      "x": 145,
+      "y": 2270,
+      "w": 40,
+      "h": 40,
+      "text": "",
+      "font": 20,
+      "manualPosition": true
+    },
+    {
+      "id": "n28",
+      "type": "conector",
+      "x": 625,
+      "y": 2570,
+      "w": 40,
+      "h": 40,
+      "text": "",
+      "font": 20,
+      "manualPosition": true
+    },
+    {
+      "id": "n29",
+      "type": "inicio",
+      "x": 570,
+      "y": 2650,
+      "w": 150,
+      "h": 58,
+      "text": "Fim",
+      "font": 25,
+      "manualPosition": true,
+      "rx": 29
+    }
+  ],
+  "links": [
+    {
+      "from": "n1",
+      "to": "n2",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n5",
+      "to": "n6",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n6",
+      "to": "n7",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n7",
+      "to": "n8",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n8",
+      "to": "n9",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n9",
+      "to": "n10",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n10",
+      "to": "n11",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n11",
+      "to": "n12",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n12",
+      "to": "n13",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n12",
+      "to": "n14",
+      "fromSide": "left",
+      "toSide": "top"
+    },
+    {
+      "from": "n13",
+      "to": "n15",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n14",
+      "to": "n28",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "n15",
+      "to": "n16",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n15",
+      "to": "n17",
+      "fromSide": "left",
+      "toSide": "top"
+    },
+    {
+      "from": "n17",
+      "to": "n18",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n17",
+      "to": "n19",
+      "fromSide": "left",
+      "toSide": "top"
+    },
+    {
+      "from": "n19",
+      "to": "n20",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n19",
+      "to": "n21",
+      "fromSide": "left",
+      "toSide": "top"
+    },
+    {
+      "from": "n21",
+      "to": "n22",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n21",
+      "to": "n23",
+      "fromSide": "left",
+      "toSide": "top"
+    },
+    {
+      "from": "n26",
+      "to": "n25",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "n24",
+      "to": "n28",
+      "fromSide": "bottom",
+      "toSide": "right"
+    },
+    {
+      "from": "n28",
+      "to": "n29",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n16",
+      "to": "n24",
+      "fromSide": "bottom",
+      "toSide": "right"
+    },
+    {
+      "from": "n25",
+      "to": "n24",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "n22",
+      "to": "n27",
+      "fromSide": "bottom",
+      "toSide": "right"
+    },
+    {
+      "from": "n23",
+      "to": "n27",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "n20",
+      "to": "n26",
+      "fromSide": "bottom",
+      "toSide": "right"
+    },
+    {
+      "from": "n27",
+      "to": "n26",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "n18",
+      "to": "n25",
+      "fromSide": "bottom",
+      "toSide": "right"
+    }
+  ],
+  "nextId": 30
+}

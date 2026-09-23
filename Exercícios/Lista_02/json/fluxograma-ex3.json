@@ -1,0 +1,364 @@
+{
+  "version": 1,
+  "app": "Editor de Fluxogramas",
+  "savedAt": "2026-09-17T07:51:23.542Z",
+  "nodes": [
+    {
+      "id": "n1",
+      "type": "inicio",
+      "x": 625,
+      "y": -65,
+      "w": 150,
+      "h": 58,
+      "text": "Início",
+      "font": 25,
+      "manualPosition": true,
+      "rx": 29
+    },
+    {
+      "id": "n2",
+      "type": "processo",
+      "x": 575,
+      "y": 25,
+      "w": 221,
+      "h": 58,
+      "text": "A, B, C, maior",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n3",
+      "type": "variavel",
+      "x": 675,
+      "y": 205,
+      "w": 125,
+      "h": 72,
+      "text": "A",
+      "font": 27,
+      "manualPosition": true
+    },
+    {
+      "id": "n4",
+      "type": "variavel",
+      "x": 560,
+      "y": 400,
+      "w": 125,
+      "h": 72,
+      "text": "B",
+      "font": 27,
+      "manualPosition": true
+    },
+    {
+      "id": "n5",
+      "type": "variavel",
+      "x": 695,
+      "y": 585,
+      "w": 125,
+      "h": 72,
+      "text": "C",
+      "font": 27,
+      "manualPosition": true
+    },
+    {
+      "id": "n6",
+      "type": "condicional",
+      "x": 615,
+      "y": 685,
+      "w": 190,
+      "h": 120,
+      "text": "A > B",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n7",
+      "type": "condicional",
+      "x": 895,
+      "y": 730,
+      "w": 190,
+      "h": 120,
+      "text": "A > C",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n8",
+      "type": "condicional",
+      "x": 345,
+      "y": 735,
+      "w": 190,
+      "h": 120,
+      "text": "B > C",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n9",
+      "type": "processo",
+      "x": 735,
+      "y": 850,
+      "w": 220,
+      "h": 58,
+      "text": "maior = C",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n10",
+      "type": "processo",
+      "x": 1010,
+      "y": 850,
+      "w": 220,
+      "h": 58,
+      "text": "maior = A",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n11",
+      "type": "processo",
+      "x": 180,
+      "y": 855,
+      "w": 220,
+      "h": 58,
+      "text": "maior = C",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n12",
+      "type": "processo",
+      "x": 475,
+      "y": 845,
+      "w": 220,
+      "h": 58,
+      "text": "maior = B",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n13",
+      "type": "conector",
+      "x": 955,
+      "y": 955,
+      "w": 40,
+      "h": 40,
+      "text": "",
+      "font": 20,
+      "manualPosition": true
+    },
+    {
+      "id": "n14",
+      "type": "conector",
+      "x": 405,
+      "y": 960,
+      "w": 40,
+      "h": 40,
+      "text": "",
+      "font": 20,
+      "manualPosition": true
+    },
+    {
+      "id": "n16",
+      "type": "entrada",
+      "x": 555,
+      "y": 1115,
+      "w": 336,
+      "h": 85,
+      "text": "\"O maior valor é: \", maior",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n17",
+      "type": "inicio",
+      "x": 620,
+      "y": 1225,
+      "w": 150,
+      "h": 58,
+      "text": "Fim",
+      "font": 25,
+      "manualPosition": true,
+      "rx": 29
+    },
+    {
+      "id": "n18",
+      "type": "conector",
+      "x": 670,
+      "y": 1055,
+      "w": 40,
+      "h": 40,
+      "text": "",
+      "font": 20,
+      "manualPosition": false
+    },
+    {
+      "id": "n19",
+      "type": "entrada",
+      "x": 525,
+      "y": 115,
+      "w": 311,
+      "h": 85,
+      "text": "\"Digite o primeiro número: \"",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n20",
+      "type": "entrada",
+      "x": 500,
+      "y": 300,
+      "w": 398.5,
+      "h": 85,
+      "text": "\"Digite o segundo número: \"",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n21",
+      "type": "entrada",
+      "x": 520,
+      "y": 495,
+      "w": 311,
+      "h": 85,
+      "text": "\"Digite o terceiro número: \"",
+      "font": 25,
+      "manualPosition": false
+    }
+  ],
+  "links": [
+    {
+      "from": "n1",
+      "to": "n2",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n5",
+      "to": "n6",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n6",
+      "to": "n7",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n6",
+      "to": "n8",
+      "fromSide": "left",
+      "toSide": "top"
+    },
+    {
+      "from": "n12",
+      "to": "n14",
+      "fromSide": "bottom",
+      "toSide": "right"
+    },
+    {
+      "from": "n16",
+      "to": "n17",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n8",
+      "to": "n12",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n8",
+      "to": "n11",
+      "fromSide": "left",
+      "toSide": "top"
+    },
+    {
+      "from": "n11",
+      "to": "n14",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "n10",
+      "to": "n13",
+      "fromSide": "bottom",
+      "toSide": "right"
+    },
+    {
+      "from": "n7",
+      "to": "n9",
+      "fromSide": "left",
+      "toSide": "top"
+    },
+    {
+      "from": "n7",
+      "to": "n10",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n9",
+      "to": "n13",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "n14",
+      "to": "n18",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "n13",
+      "to": "n18",
+      "fromSide": "bottom",
+      "toSide": "right"
+    },
+    {
+      "from": "n18",
+      "to": "n16",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n2",
+      "to": "n19",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n19",
+      "to": "n3",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n20",
+      "to": "n4",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n21",
+      "to": "n5",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n3",
+      "to": "n20",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n4",
+      "to": "n21",
+      "fromSide": "bottom",
+      "toSide": "top"
+    }
+  ],
+  "nextId": 22
+}

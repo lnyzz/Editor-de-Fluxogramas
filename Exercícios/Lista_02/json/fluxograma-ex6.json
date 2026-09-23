@@ -1,0 +1,273 @@
+{
+  "version": 1,
+  "app": "Editor de Fluxogramas",
+  "savedAt": "2026-09-23T09:31:23.180Z",
+  "nodes": [
+    {
+      "id": "n1",
+      "type": "inicio",
+      "x": 600,
+      "y": 60,
+      "w": 150,
+      "h": 58,
+      "text": "Início",
+      "font": 25,
+      "manualPosition": true,
+      "rx": 29
+    },
+    {
+      "id": "n2",
+      "type": "processo",
+      "x": 490,
+      "y": 170,
+      "w": 233.5,
+      "h": 58,
+      "text": "peso, altura, R",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n3",
+      "type": "entrada",
+      "x": 450,
+      "y": 290,
+      "w": 299,
+      "h": 78,
+      "text": "\"Digite o peso:\"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n4",
+      "type": "variavel",
+      "x": 550,
+      "y": 410,
+      "w": 125,
+      "h": 72,
+      "text": "peso",
+      "font": 27,
+      "manualPosition": true
+    },
+    {
+      "id": "n5",
+      "type": "entrada",
+      "x": 450,
+      "y": 530,
+      "w": 323.5,
+      "h": 78,
+      "text": "\"Digite a altura: \"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n6",
+      "type": "variavel",
+      "x": 550,
+      "y": 650,
+      "w": 139,
+      "h": 72,
+      "text": "altura",
+      "font": 27,
+      "manualPosition": true
+    },
+    {
+      "id": "n7",
+      "type": "processo",
+      "x": 490,
+      "y": 770,
+      "w": 396,
+      "h": 58,
+      "text": "R = peso / (altura * altura)",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n8",
+      "type": "condicional",
+      "x": 505,
+      "y": 890,
+      "w": 190,
+      "h": 120,
+      "text": "R < 20",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n9",
+      "type": "entrada",
+      "x": 695,
+      "y": 1045,
+      "w": 299,
+      "h": 78,
+      "text": "\"Abaixo do peso\"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n10",
+      "type": "condicional",
+      "x": 380,
+      "y": 1020,
+      "w": 190,
+      "h": 120,
+      "text": "R < 25",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n11",
+      "type": "entrada",
+      "x": 495,
+      "y": 1150,
+      "w": 299,
+      "h": 78,
+      "text": "\"Peso ideal\"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n12",
+      "type": "entrada",
+      "x": 190,
+      "y": 1150,
+      "w": 299,
+      "h": 78,
+      "text": "\"Acima do peso\"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n13",
+      "type": "conector",
+      "x": 460,
+      "y": 1270,
+      "w": 40,
+      "h": 40,
+      "text": "",
+      "font": 20,
+      "manualPosition": true
+    },
+    {
+      "id": "n14",
+      "type": "inicio",
+      "x": 540,
+      "y": 1415,
+      "w": 150,
+      "h": 58,
+      "text": "Fim",
+      "font": 25,
+      "manualPosition": true,
+      "rx": 29
+    },
+    {
+      "id": "n15",
+      "type": "conector",
+      "x": 595,
+      "y": 1340,
+      "w": 40,
+      "h": 40,
+      "text": "",
+      "font": 20,
+      "manualPosition": false
+    }
+  ],
+  "links": [
+    {
+      "from": "n1",
+      "to": "n2",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n5",
+      "to": "n6",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n6",
+      "to": "n7",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n7",
+      "to": "n8",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n8",
+      "to": "n9",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n8",
+      "to": "n10",
+      "fromSide": "left",
+      "toSide": "top"
+    },
+    {
+      "from": "n10",
+      "to": "n11",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n11",
+      "to": "n13",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "n10",
+      "to": "n12",
+      "fromSide": "left",
+      "toSide": "top"
+    },
+    {
+      "from": "n12",
+      "to": "n13",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "n9",
+      "to": "n15",
+      "fromSide": "bottom",
+      "toSide": "right"
+    },
+    {
+      "from": "n13",
+      "to": "n15",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "n15",
+      "to": "n14",
+      "fromSide": "bottom",
+      "toSide": "top"
+    }
+  ],
+  "nextId": 16
+}

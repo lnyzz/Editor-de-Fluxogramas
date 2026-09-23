@@ -1,0 +1,216 @@
+{
+  "version": 1,
+  "app": "Editor de Fluxogramas",
+  "savedAt": "2026-09-17T09:42:57.684Z",
+  "nodes": [
+    {
+      "id": "n1",
+      "type": "inicio",
+      "x": 600,
+      "y": 60,
+      "w": 150,
+      "h": 58,
+      "text": "Início",
+      "font": 25,
+      "manualPosition": true,
+      "rx": 29
+    },
+    {
+      "id": "n2",
+      "type": "processo",
+      "x": 490,
+      "y": 170,
+      "w": 271,
+      "h": 58,
+      "text": "base, altura, area",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n3",
+      "type": "entrada",
+      "x": 450,
+      "y": 290,
+      "w": 299,
+      "h": 78,
+      "text": "\"Digite a base:\"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n4",
+      "type": "variavel",
+      "x": 550,
+      "y": 410,
+      "w": 125,
+      "h": 72,
+      "text": "base",
+      "font": 27,
+      "manualPosition": true
+    },
+    {
+      "id": "n5",
+      "type": "entrada",
+      "x": 450,
+      "y": 530,
+      "w": 323.5,
+      "h": 78,
+      "text": "\"Digite a altura: \"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n6",
+      "type": "variavel",
+      "x": 550,
+      "y": 650,
+      "w": 139,
+      "h": 72,
+      "text": "altura",
+      "font": 27,
+      "manualPosition": true
+    },
+    {
+      "id": "n7",
+      "type": "processo",
+      "x": 490,
+      "y": 770,
+      "w": 296,
+      "h": 58,
+      "text": "area = base * altura",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n8",
+      "type": "entrada",
+      "x": 450,
+      "y": 880,
+      "w": 299,
+      "h": 78,
+      "text": "\"Área: \", area",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n9",
+      "type": "condicional",
+      "x": 505,
+      "y": 1010,
+      "w": 195,
+      "h": 120,
+      "text": "area > 100",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n10",
+      "type": "entrada",
+      "x": 665,
+      "y": 1105,
+      "w": 299,
+      "h": 78,
+      "text": "\"Terreno grande\"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n11",
+      "type": "conector",
+      "x": 615,
+      "y": 1220,
+      "w": 40,
+      "h": 40,
+      "text": "",
+      "font": 20,
+      "manualPosition": true
+    },
+    {
+      "id": "n12",
+      "type": "inicio",
+      "x": 605,
+      "y": 1300,
+      "w": 150,
+      "h": 58,
+      "text": "Fim",
+      "font": 25,
+      "manualPosition": true,
+      "rx": 29
+    }
+  ],
+  "links": [
+    {
+      "from": "n1",
+      "to": "n2",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n5",
+      "to": "n6",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n6",
+      "to": "n7",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n7",
+      "to": "n8",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n8",
+      "to": "n9",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n9",
+      "to": "n10",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n11",
+      "to": "n12",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n10",
+      "to": "n11",
+      "fromSide": "bottom",
+      "toSide": "right"
+    },
+    {
+      "from": "n9",
+      "to": "n11",
+      "fromSide": "left",
+      "toSide": "left"
+    }
+  ],
+  "nextId": 13
+}
