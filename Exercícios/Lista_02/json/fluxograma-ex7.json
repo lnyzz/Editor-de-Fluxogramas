@@ -1,7 +1,7 @@
 {
   "version": 1,
   "app": "Editor de Fluxogramas",
-  "savedAt": "2026-09-23T10:20:49.137Z",
+  "savedAt": "2026-10-07T11:25:07.403Z",
   "nodes": [
     {
       "id": "n1",
@@ -139,19 +139,8 @@
     {
       "id": "n13",
       "type": "entrada",
-      "x": 650,
-      "y": 1400,
-      "w": 299,
-      "h": 78,
-      "text": "\"É um triângulo\"",
-      "font": 25,
-      "manualPosition": true
-    },
-    {
-      "id": "n14",
-      "type": "entrada",
-      "x": -400,
-      "y": 1975,
+      "x": -205,
+      "y": 1770,
       "w": 336,
       "h": 78,
       "text": "\"Não é um triângulo\"",
@@ -159,21 +148,32 @@
       "manualPosition": true
     },
     {
+      "id": "n14",
+      "type": "condicional",
+      "x": 810,
+      "y": 1450,
+      "w": 190,
+      "h": 120,
+      "text": "ladoA == ladoB",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
       "id": "n15",
       "type": "condicional",
-      "x": 720,
-      "y": 1540,
+      "x": 1105,
+      "y": 1610,
       "w": 190,
-      "h": 168,
-      "text": "ladoA == ladoB && ladoB == ladoC",
+      "h": 120,
+      "text": "ladoB == ladoC",
       "font": 25,
       "manualPosition": true
     },
     {
       "id": "n16",
       "type": "entrada",
-      "x": 1000,
-      "y": 1670,
+      "x": 1210,
+      "y": 1750,
       "w": 299,
       "h": 78,
       "text": "\"Equilátero\"",
@@ -182,20 +182,9 @@
     },
     {
       "id": "n17",
-      "type": "condicional",
-      "x": 425,
-      "y": 1725,
-      "w": 190,
-      "h": 120,
-      "text": "ladoA == ladoB",
-      "font": 25,
-      "manualPosition": true
-    },
-    {
-      "id": "n18",
       "type": "entrada",
-      "x": 670,
-      "y": 1985,
+      "x": 915,
+      "y": 1755,
       "w": 299,
       "h": 78,
       "text": "\"Isósceles\"",
@@ -203,10 +192,10 @@
       "manualPosition": true
     },
     {
-      "id": "n19",
+      "id": "n18",
       "type": "condicional",
-      "x": 235,
-      "y": 1845,
+      "x": 530,
+      "y": 1570,
       "w": 190,
       "h": 120,
       "text": "ladoA == ladoC",
@@ -214,10 +203,10 @@
       "manualPosition": true
     },
     {
-      "id": "n20",
+      "id": "n19",
       "type": "entrada",
-      "x": 340,
-      "y": 1990,
+      "x": 755,
+      "y": 1840,
       "w": 299,
       "h": 78,
       "text": "\"Isósceles\"",
@@ -225,10 +214,10 @@
       "manualPosition": true
     },
     {
-      "id": "n21",
+      "id": "n20",
       "type": "condicional",
-      "x": 50,
-      "y": 1970,
+      "x": 380,
+      "y": 1695,
       "w": 190,
       "h": 120,
       "text": "ladoB == ladoC",
@@ -236,10 +225,10 @@
       "manualPosition": true
     },
     {
-      "id": "n22",
+      "id": "n21",
       "type": "entrada",
-      "x": 145,
-      "y": 2145,
+      "x": 455,
+      "y": 1835,
       "w": 299,
       "h": 78,
       "text": "\"Isósceles\"",
@@ -247,10 +236,10 @@
       "manualPosition": true
     },
     {
-      "id": "n23",
+      "id": "n22",
       "type": "entrada",
-      "x": -135,
-      "y": 2180,
+      "x": 120,
+      "y": 1835,
       "w": 299,
       "h": 78,
       "text": "\"Escaleno\"",
@@ -258,10 +247,21 @@
       "manualPosition": true
     },
     {
+      "id": "n23",
+      "type": "conector",
+      "x": 1170,
+      "y": 1845,
+      "w": 40,
+      "h": 40,
+      "text": "",
+      "font": 20,
+      "manualPosition": true
+    },
+    {
       "id": "n24",
       "type": "conector",
-      "x": 780,
-      "y": 2475,
+      "x": 870,
+      "y": 2150,
       "w": 40,
       "h": 40,
       "text": "",
@@ -271,29 +271,7 @@
     {
       "id": "n25",
       "type": "conector",
-      "x": 490,
-      "y": 2400,
-      "w": 40,
-      "h": 40,
-      "text": "",
-      "font": 20,
-      "manualPosition": true
-    },
-    {
-      "id": "n26",
-      "type": "conector",
-      "x": 325,
-      "y": 2325,
-      "w": 40,
-      "h": 40,
-      "text": "",
-      "font": 20,
-      "manualPosition": true
-    },
-    {
-      "id": "n27",
-      "type": "conector",
-      "x": 145,
+      "x": 575,
       "y": 2270,
       "w": 40,
       "h": 40,
@@ -302,27 +280,38 @@
       "manualPosition": true
     },
     {
-      "id": "n28",
-      "type": "conector",
-      "x": 625,
-      "y": 2570,
-      "w": 40,
-      "h": 40,
-      "text": "",
-      "font": 20,
-      "manualPosition": true
-    },
-    {
-      "id": "n29",
+      "id": "n27",
       "type": "inicio",
-      "x": 570,
-      "y": 2650,
+      "x": 520,
+      "y": 2345,
       "w": 150,
       "h": 58,
       "text": "Fim",
       "font": 25,
       "manualPosition": true,
       "rx": 29
+    },
+    {
+      "id": "n28",
+      "type": "conector",
+      "x": 445,
+      "y": 1975,
+      "w": 40,
+      "h": 40,
+      "text": "",
+      "font": 20,
+      "manualPosition": false
+    },
+    {
+      "id": "n29",
+      "type": "conector",
+      "x": 620,
+      "y": 2080,
+      "w": 40,
+      "h": 40,
+      "text": "",
+      "font": 20,
+      "manualPosition": false
     }
   ],
   "links": [
@@ -395,26 +384,26 @@
     {
       "from": "n12",
       "to": "n13",
-      "fromSide": "right",
+      "fromSide": "left",
       "toSide": "top"
     },
     {
       "from": "n12",
       "to": "n14",
-      "fromSide": "left",
-      "toSide": "top"
-    },
-    {
-      "from": "n13",
-      "to": "n15",
-      "fromSide": "bottom",
+      "fromSide": "right",
       "toSide": "top"
     },
     {
       "from": "n14",
-      "to": "n28",
-      "fromSide": "bottom",
-      "toSide": "left"
+      "to": "n15",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n14",
+      "to": "n18",
+      "fromSide": "left",
+      "toSide": "top"
     },
     {
       "from": "n15",
@@ -429,50 +418,68 @@
       "toSide": "top"
     },
     {
-      "from": "n17",
-      "to": "n18",
-      "fromSide": "right",
-      "toSide": "top"
-    },
-    {
-      "from": "n17",
+      "from": "n18",
       "to": "n19",
-      "fromSide": "left",
+      "fromSide": "right",
       "toSide": "top"
     },
     {
-      "from": "n19",
+      "from": "n18",
       "to": "n20",
-      "fromSide": "right",
+      "fromSide": "left",
       "toSide": "top"
     },
     {
-      "from": "n19",
+      "from": "n20",
       "to": "n21",
-      "fromSide": "left",
-      "toSide": "top"
-    },
-    {
-      "from": "n21",
-      "to": "n22",
       "fromSide": "right",
       "toSide": "top"
     },
     {
-      "from": "n21",
-      "to": "n23",
+      "from": "n20",
+      "to": "n22",
       "fromSide": "left",
       "toSide": "top"
     },
     {
-      "from": "n26",
-      "to": "n25",
+      "from": "n16",
+      "to": "n23",
+      "fromSide": "bottom",
+      "toSide": "right"
+    },
+    {
+      "from": "n17",
+      "to": "n23",
       "fromSide": "bottom",
       "toSide": "left"
     },
     {
-      "from": "n24",
+      "from": "n23",
+      "to": "n24",
+      "fromSide": "bottom",
+      "toSide": "right"
+    },
+    {
+      "from": "n22",
       "to": "n28",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "n21",
+      "to": "n28",
+      "fromSide": "bottom",
+      "toSide": "right"
+    },
+    {
+      "from": "n24",
+      "to": "n25",
+      "fromSide": "bottom",
+      "toSide": "right"
+    },
+    {
+      "from": "n19",
+      "to": "n29",
       "fromSide": "bottom",
       "toSide": "right"
     },
@@ -480,49 +487,25 @@
       "from": "n28",
       "to": "n29",
       "fromSide": "bottom",
-      "toSide": "top"
+      "toSide": "left"
     },
     {
-      "from": "n16",
+      "from": "n29",
       "to": "n24",
       "fromSide": "bottom",
-      "toSide": "right"
+      "toSide": "left"
+    },
+    {
+      "from": "n13",
+      "to": "n25",
+      "fromSide": "bottom",
+      "toSide": "left"
     },
     {
       "from": "n25",
-      "to": "n24",
-      "fromSide": "bottom",
-      "toSide": "left"
-    },
-    {
-      "from": "n22",
       "to": "n27",
       "fromSide": "bottom",
-      "toSide": "right"
-    },
-    {
-      "from": "n23",
-      "to": "n27",
-      "fromSide": "bottom",
-      "toSide": "left"
-    },
-    {
-      "from": "n20",
-      "to": "n26",
-      "fromSide": "bottom",
-      "toSide": "right"
-    },
-    {
-      "from": "n27",
-      "to": "n26",
-      "fromSide": "bottom",
-      "toSide": "left"
-    },
-    {
-      "from": "n18",
-      "to": "n25",
-      "fromSide": "bottom",
-      "toSide": "right"
+      "toSide": "top"
     }
   ],
   "nextId": 30

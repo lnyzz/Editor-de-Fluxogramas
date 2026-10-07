@@ -1,0 +1,233 @@
+{
+  "version": 1,
+  "app": "Editor de Fluxogramas",
+  "savedAt": "2026-10-07T11:07:27.038Z",
+  "nodes": [
+    {
+      "id": "n1",
+      "type": "inicio",
+      "x": 600,
+      "y": 60,
+      "w": 150,
+      "h": 58,
+      "text": "Início",
+      "font": 25,
+      "manualPosition": true,
+      "rx": 29
+    },
+    {
+      "id": "n2",
+      "type": "processo",
+      "x": 490,
+      "y": 170,
+      "w": 220,
+      "h": 58,
+      "text": "P1, P2, MEDIA",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n3",
+      "type": "entrada",
+      "x": 450,
+      "y": 290,
+      "w": 336,
+      "h": 78,
+      "text": "\"Digite a nota P1: \"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n4",
+      "type": "variavel",
+      "x": 550,
+      "y": 410,
+      "w": 125,
+      "h": 72,
+      "text": "P1",
+      "font": 27,
+      "manualPosition": true
+    },
+    {
+      "id": "n5",
+      "type": "entrada",
+      "x": 450,
+      "y": 530,
+      "w": 336,
+      "h": 78,
+      "text": "\"Digite a nota P2: \"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n6",
+      "type": "variavel",
+      "x": 550,
+      "y": 650,
+      "w": 125,
+      "h": 72,
+      "text": "P2",
+      "font": 27,
+      "manualPosition": true
+    },
+    {
+      "id": "n7",
+      "type": "processo",
+      "x": 450,
+      "y": 770,
+      "w": 358.5,
+      "h": 58,
+      "text": "MEDIA = (P1 + 2 * P2) / 3",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n8",
+      "type": "condicional",
+      "x": 500,
+      "y": 970,
+      "w": 190,
+      "h": 120,
+      "text": "MEDIA < 5",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n9",
+      "type": "entrada",
+      "x": 640,
+      "y": 1080,
+      "w": 299,
+      "h": 78,
+      "text": "\"Reprovado\"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n10",
+      "type": "entrada",
+      "x": 240,
+      "y": 1075,
+      "w": 299,
+      "h": 78,
+      "text": "\"Aprovado\"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n11",
+      "type": "conector",
+      "x": 585,
+      "y": 1200,
+      "w": 40,
+      "h": 40,
+      "text": "",
+      "font": 20,
+      "manualPosition": true
+    },
+    {
+      "id": "n12",
+      "type": "inicio",
+      "x": 540,
+      "y": 1285,
+      "w": 150,
+      "h": 58,
+      "text": "Fim",
+      "font": 25,
+      "manualPosition": true,
+      "rx": 29
+    },
+    {
+      "id": "n14",
+      "type": "entrada",
+      "x": 430,
+      "y": 865,
+      "w": 386,
+      "h": 85,
+      "text": "\"Sua média ficou igual a \", MEDIA",
+      "font": 25,
+      "manualPosition": false
+    }
+  ],
+  "links": [
+    {
+      "from": "n1",
+      "to": "n2",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n5",
+      "to": "n6",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n6",
+      "to": "n7",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n8",
+      "to": "n9",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n8",
+      "to": "n10",
+      "fromSide": "left",
+      "toSide": "top"
+    },
+    {
+      "from": "n9",
+      "to": "n11",
+      "fromSide": "bottom",
+      "toSide": "right"
+    },
+    {
+      "from": "n10",
+      "to": "n11",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "n11",
+      "to": "n12",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n7",
+      "to": "n14",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n14",
+      "to": "n8",
+      "fromSide": "bottom",
+      "toSide": "top"
+    }
+  ],
+  "nextId": 15
+}

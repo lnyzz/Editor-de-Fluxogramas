@@ -1,0 +1,364 @@
+{
+  "version": 1,
+  "app": "Editor de Fluxogramas",
+  "savedAt": "2026-10-07T11:08:03.607Z",
+  "nodes": [
+    {
+      "id": "n1",
+      "type": "inicio",
+      "x": 600,
+      "y": 60,
+      "w": 150,
+      "h": 58,
+      "text": "Início",
+      "font": 25,
+      "manualPosition": true,
+      "rx": 29
+    },
+    {
+      "id": "n2",
+      "type": "processo",
+      "x": 450,
+      "y": 170,
+      "w": 283.5,
+      "h": 58,
+      "text": "A, B, C, A2, B2, C2",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n3",
+      "type": "entrada",
+      "x": 450,
+      "y": 290,
+      "w": 373.5,
+      "h": 78,
+      "text": "\"Digite o valor de A: \"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n4",
+      "type": "variavel",
+      "x": 550,
+      "y": 410,
+      "w": 125,
+      "h": 72,
+      "text": "A",
+      "font": 27,
+      "manualPosition": true
+    },
+    {
+      "id": "n5",
+      "type": "entrada",
+      "x": 450,
+      "y": 530,
+      "w": 373.5,
+      "h": 78,
+      "text": "\"Digite o valor de B: \"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n6",
+      "type": "variavel",
+      "x": 550,
+      "y": 650,
+      "w": 125,
+      "h": 72,
+      "text": "B",
+      "font": 27,
+      "manualPosition": true
+    },
+    {
+      "id": "n7",
+      "type": "entrada",
+      "x": 450,
+      "y": 770,
+      "w": 373.5,
+      "h": 78,
+      "text": "\"Digite o valor de C: \"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n8",
+      "type": "variavel",
+      "x": 550,
+      "y": 890,
+      "w": 125,
+      "h": 72,
+      "text": "C",
+      "font": 27,
+      "manualPosition": true
+    },
+    {
+      "id": "n9",
+      "type": "processo",
+      "x": 450,
+      "y": 1010,
+      "w": 471,
+      "h": 58,
+      "text": "A2 = A * A, B2 = B * B, C2 = C * C",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n10",
+      "type": "condicional",
+      "x": 505,
+      "y": 1130,
+      "w": 195,
+      "h": 120,
+      "text": "A2 == B2 + C2",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n11",
+      "type": "entrada",
+      "x": 720,
+      "y": 1285,
+      "w": 299,
+      "h": 85,
+      "text": "\"É um triângulo retângulo\"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n12",
+      "type": "condicional",
+      "x": 300,
+      "y": 1270,
+      "w": 195,
+      "h": 120,
+      "text": "B2 == A2 + C2",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n13",
+      "type": "entrada",
+      "x": 500,
+      "y": 1425,
+      "w": 299,
+      "h": 85,
+      "text": "\"É um triângulo retângulo\"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n14",
+      "type": "condicional",
+      "x": 80,
+      "y": 1410,
+      "w": 195,
+      "h": 120,
+      "text": "C2 == A2 + B2",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n15",
+      "type": "entrada",
+      "x": 280,
+      "y": 1565,
+      "w": 299,
+      "h": 85,
+      "text": "\"É um triângulo retângulo\"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n16",
+      "type": "entrada",
+      "x": -30,
+      "y": 1565,
+      "w": 323.5,
+      "h": 85,
+      "text": "\"Não é um triângulo retângulo\"",
+      "font": 25,
+      "manualPosition": true
+    },
+    {
+      "id": "n17",
+      "type": "conector",
+      "x": 220,
+      "y": 1690,
+      "w": 40,
+      "h": 40,
+      "text": "",
+      "font": 20,
+      "manualPosition": true
+    },
+    {
+      "id": "n18",
+      "type": "conector",
+      "x": 420,
+      "y": 1810,
+      "w": 40,
+      "h": 40,
+      "text": "",
+      "font": 20,
+      "manualPosition": true
+    },
+    {
+      "id": "n19",
+      "type": "conector",
+      "x": 620,
+      "y": 1930,
+      "w": 40,
+      "h": 40,
+      "text": "",
+      "font": 20,
+      "manualPosition": true
+    },
+    {
+      "id": "n20",
+      "type": "inicio",
+      "x": 565,
+      "y": 2050,
+      "w": 150,
+      "h": 58,
+      "text": "Fim",
+      "font": 25,
+      "manualPosition": true,
+      "rx": 29
+    }
+  ],
+  "links": [
+    {
+      "from": "n1",
+      "to": "n2",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n5",
+      "to": "n6",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n6",
+      "to": "n7",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n7",
+      "to": "n8",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n8",
+      "to": "n9",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n9",
+      "to": "n10",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n10",
+      "to": "n11",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n10",
+      "to": "n12",
+      "fromSide": "left",
+      "toSide": "top"
+    },
+    {
+      "from": "n12",
+      "to": "n13",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n12",
+      "to": "n14",
+      "fromSide": "left",
+      "toSide": "top"
+    },
+    {
+      "from": "n14",
+      "to": "n15",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n14",
+      "to": "n16",
+      "fromSide": "left",
+      "toSide": "top"
+    },
+    {
+      "from": "n17",
+      "to": "n18",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "n13",
+      "to": "n18",
+      "fromSide": "bottom",
+      "toSide": "right"
+    },
+    {
+      "from": "n18",
+      "to": "n19",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "n11",
+      "to": "n19",
+      "fromSide": "bottom",
+      "toSide": "right"
+    },
+    {
+      "from": "n19",
+      "to": "n20",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n16",
+      "to": "n17",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "n15",
+      "to": "n17",
+      "fromSide": "bottom",
+      "toSide": "right"
+    }
+  ],
+  "nextId": 21
+}
