@@ -1,0 +1,215 @@
+{
+  "version": 1,
+  "app": "Editor de Fluxogramas",
+  "nodes": [
+    {
+      "id": "n1",
+      "type": "inicio",
+      "x": 445,
+      "y": 30,
+      "w": 150,
+      "h": 58,
+      "text": "Início",
+      "font": 25,
+      "manualPosition": false,
+      "rx": 29
+    },
+    {
+      "id": "n2",
+      "type": "processo",
+      "x": 341,
+      "y": 144,
+      "w": 358.5,
+      "h": 58,
+      "text": "A, B, resultado, contador",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n3",
+      "type": "entrada",
+      "x": 321,
+      "y": 258,
+      "w": 398.5,
+      "h": 85,
+      "text": "\"Digite o primeiro número inteiro positivo:\"",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n4",
+      "type": "variavel",
+      "x": 458,
+      "y": 399,
+      "w": 125,
+      "h": 72,
+      "text": "A",
+      "font": 27,
+      "manualPosition": false
+    },
+    {
+      "id": "n5",
+      "type": "entrada",
+      "x": 327,
+      "y": 527,
+      "w": 386,
+      "h": 85,
+      "text": "\"Digite o segundo número inteiro positivo:\"",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n6",
+      "type": "variavel",
+      "x": 458,
+      "y": 668,
+      "w": 125,
+      "h": 72,
+      "text": "B",
+      "font": 27,
+      "manualPosition": false
+    },
+    {
+      "id": "n7",
+      "type": "processo",
+      "x": 328,
+      "y": 796,
+      "w": 383.5,
+      "h": 58,
+      "text": "resultado = 0, contador = 0",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n8",
+      "type": "condicional",
+      "x": 410,
+      "y": 910,
+      "w": 220,
+      "h": 120,
+      "text": "contador < B",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n9",
+      "type": "processo",
+      "x": 341,
+      "y": 1086,
+      "w": 358.5,
+      "h": 58,
+      "text": "resultado = resultado + A",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n10",
+      "type": "processo",
+      "x": 353,
+      "y": 1200,
+      "w": 333.5,
+      "h": 58,
+      "text": "contador = contador + 1",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n11",
+      "type": "entrada",
+      "x": 327,
+      "y": 1370,
+      "w": 386,
+      "h": 78,
+      "text": "\"Resultado: \", resultado",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n12",
+      "type": "inicio",
+      "x": 445,
+      "y": 1504,
+      "w": 150,
+      "h": 58,
+      "text": "Fim",
+      "font": 25,
+      "manualPosition": false,
+      "rx": 29
+    }
+  ],
+  "links": [
+    {
+      "from": "n1",
+      "to": "n2",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n5",
+      "to": "n6",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n6",
+      "to": "n7",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n7",
+      "to": "n8",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n8",
+      "to": "n9",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n9",
+      "to": "n10",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n10",
+      "to": "n8",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "n8",
+      "to": "n11",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n11",
+      "to": "n12",
+      "fromSide": "bottom",
+      "toSide": "top"
+    }
+  ],
+  "nextId": 13
+}

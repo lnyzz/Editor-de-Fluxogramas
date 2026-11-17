@@ -1,0 +1,198 @@
+{
+  "version": 1,
+  "app": "Editor de Fluxogramas",
+  "nodes": [
+    {
+      "id": "n1",
+      "type": "inicio",
+      "x": 445,
+      "y": 30,
+      "w": 150,
+      "h": 58,
+      "text": "Início",
+      "font": 25,
+      "manualPosition": false,
+      "rx": 29
+    },
+    {
+      "id": "n2",
+      "type": "processo",
+      "x": 310,
+      "y": 144,
+      "w": 421,
+      "h": 58,
+      "text": "atual, proximo, soma, contador",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n3",
+      "type": "processo",
+      "x": 360,
+      "y": 258,
+      "w": 321,
+      "h": 58,
+      "text": "atual = 0, proximo = 1",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n11",
+      "type": "processo",
+      "x": 410,
+      "y": 372,
+      "w": 220,
+      "h": 58,
+      "text": "contador = 1",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n4",
+      "type": "condicional",
+      "x": 416,
+      "y": 486,
+      "w": 207.5,
+      "h": 120,
+      "text": "contador <= 20",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n5",
+      "type": "entrada",
+      "x": 370,
+      "y": 662,
+      "w": 299,
+      "h": 78,
+      "text": "atual",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n6",
+      "type": "processo",
+      "x": 360,
+      "y": 796,
+      "w": 321,
+      "h": 58,
+      "text": "soma = atual + proximo",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n7",
+      "type": "processo",
+      "x": 403,
+      "y": 910,
+      "w": 233.5,
+      "h": 58,
+      "text": "atual = proximo",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n8",
+      "type": "processo",
+      "x": 410,
+      "y": 1024,
+      "w": 221,
+      "h": 58,
+      "text": "proximo = soma",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n9",
+      "type": "processo",
+      "x": 353,
+      "y": 1138,
+      "w": 333.5,
+      "h": 58,
+      "text": "contador = contador + 1",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n10",
+      "type": "inicio",
+      "x": 445,
+      "y": 1308,
+      "w": 150,
+      "h": 58,
+      "text": "Fim",
+      "font": 25,
+      "manualPosition": false,
+      "rx": 29
+    }
+  ],
+  "links": [
+    {
+      "from": "n1",
+      "to": "n2",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n3",
+      "to": "n11",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n11",
+      "to": "n4",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n5",
+      "to": "n6",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n6",
+      "to": "n7",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n7",
+      "to": "n8",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n8",
+      "to": "n9",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n9",
+      "to": "n4",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "n4",
+      "to": "n10",
+      "fromSide": "right",
+      "toSide": "top"
+    }
+  ],
+  "nextId": 12
+}

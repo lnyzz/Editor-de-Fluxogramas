@@ -1,0 +1,318 @@
+{
+  "version": 1,
+  "app": "Editor de Fluxogramas",
+  "nodes": [
+    {
+      "id": "n1",
+      "type": "inicio",
+      "x": 445,
+      "y": 30,
+      "w": 150,
+      "h": 58,
+      "text": "Início",
+      "font": 25,
+      "manualPosition": false,
+      "rx": 29
+    },
+    {
+      "id": "n2",
+      "type": "processo",
+      "x": 353,
+      "y": 144,
+      "w": 333.5,
+      "h": 58,
+      "text": "N, atual, divisor, soma",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n3",
+      "type": "entrada",
+      "x": 321,
+      "y": 258,
+      "w": 398.5,
+      "h": 85,
+      "text": "\"Digite um número inteiro positivo N:\"",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n4",
+      "type": "variavel",
+      "x": 458,
+      "y": 399,
+      "w": 125,
+      "h": 72,
+      "text": "N",
+      "font": 27,
+      "manualPosition": false
+    },
+    {
+      "id": "n5",
+      "type": "processo",
+      "x": 410,
+      "y": 527,
+      "w": 220,
+      "h": 58,
+      "text": "atual = 1",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n6",
+      "type": "condicional",
+      "x": 422,
+      "y": 641,
+      "w": 195,
+      "h": 120,
+      "text": "atual <= N",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n7",
+      "type": "processo",
+      "x": 366,
+      "y": 817,
+      "w": 308.5,
+      "h": 58,
+      "text": "soma = 0, divisor = 1",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n8",
+      "type": "condicional",
+      "x": 425,
+      "y": 931,
+      "w": 190,
+      "h": 120,
+      "text": "divisor < atual",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n9",
+      "type": "condicional",
+      "x": 410,
+      "y": 1107,
+      "w": 220,
+      "h": 120,
+      "text": "atual % divisor == 0",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n10",
+      "type": "processo",
+      "x": 616,
+      "y": 1247,
+      "w": 308.5,
+      "h": 58,
+      "text": "soma = soma + divisor",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n11",
+      "type": "conector",
+      "x": 500,
+      "y": 1365,
+      "w": 40,
+      "h": 40,
+      "text": "",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n12",
+      "type": "processo",
+      "x": 366,
+      "y": 1461,
+      "w": 308.5,
+      "h": 58,
+      "text": "divisor = divisor + 1",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n13",
+      "type": "condicional",
+      "x": 425,
+      "y": 1631,
+      "w": 190,
+      "h": 120,
+      "text": "soma == atual",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n14",
+      "type": "entrada",
+      "x": 602,
+      "y": 1771,
+      "w": 336,
+      "h": 85,
+      "text": "\"Número perfeito: \", atual",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n15",
+      "type": "conector",
+      "x": 500,
+      "y": 1916,
+      "w": 40,
+      "h": 40,
+      "text": "",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n16",
+      "type": "processo",
+      "x": 391,
+      "y": 2012,
+      "w": 258.5,
+      "h": 58,
+      "text": "atual = atual + 1",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n17",
+      "type": "inicio",
+      "x": 1005,
+      "y": 2012,
+      "w": 150,
+      "h": 58,
+      "text": "Fim",
+      "font": 25,
+      "manualPosition": false,
+      "rx": 29
+    }
+  ],
+  "links": [
+    {
+      "from": "n1",
+      "to": "n2",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n5",
+      "to": "n6",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n6",
+      "to": "n7",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n6",
+      "to": "n17",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n7",
+      "to": "n8",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n8",
+      "to": "n9",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n8",
+      "to": "n13",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n9",
+      "to": "n10",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n9",
+      "to": "n11",
+      "fromSide": "left",
+      "toSide": "left"
+    },
+    {
+      "from": "n10",
+      "to": "n11",
+      "fromSide": "bottom",
+      "toSide": "right"
+    },
+    {
+      "from": "n11",
+      "to": "n12",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n12",
+      "to": "n8",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "n13",
+      "to": "n14",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n13",
+      "to": "n15",
+      "fromSide": "left",
+      "toSide": "left"
+    },
+    {
+      "from": "n14",
+      "to": "n15",
+      "fromSide": "bottom",
+      "toSide": "right"
+    },
+    {
+      "from": "n15",
+      "to": "n16",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n16",
+      "to": "n6",
+      "fromSide": "bottom",
+      "toSide": "left"
+    }
+  ],
+  "nextId": 18
+}

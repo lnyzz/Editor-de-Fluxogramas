@@ -1,0 +1,215 @@
+{
+  "version": 1,
+  "app": "Editor de Fluxogramas",
+  "nodes": [
+    {
+      "id": "n1",
+      "type": "inicio",
+      "x": 445,
+      "y": 30,
+      "w": 150,
+      "h": 58,
+      "text": "Início",
+      "font": 25,
+      "manualPosition": false,
+      "rx": 29
+    },
+    {
+      "id": "n2",
+      "type": "processo",
+      "x": 410,
+      "y": 144,
+      "w": 220,
+      "h": 58,
+      "text": "saldo, saque",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n3",
+      "type": "processo",
+      "x": 410,
+      "y": 258,
+      "w": 220,
+      "h": 58,
+      "text": "saldo = 1000",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n4",
+      "type": "entrada",
+      "x": 321,
+      "y": 372,
+      "w": 398.5,
+      "h": 78,
+      "text": "\"Saldo atual: R$ \", saldo",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n5",
+      "type": "entrada",
+      "x": 364,
+      "y": 506,
+      "w": 311,
+      "h": 85,
+      "text": "\"Digite o valor do saque:\"",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n6",
+      "type": "variavel",
+      "x": 457,
+      "y": 647,
+      "w": 125.5,
+      "h": 72,
+      "text": "saque",
+      "font": 27,
+      "manualPosition": false
+    },
+    {
+      "id": "n7",
+      "type": "condicional",
+      "x": 422,
+      "y": 775,
+      "w": 195,
+      "h": 138.5,
+      "text": "saque > saldo || saque <= 0",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n8",
+      "type": "entrada",
+      "x": 333,
+      "y": 969.5,
+      "w": 373.5,
+      "h": 85,
+      "text": "\"Valor inválido. Digite outro valor:\"",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n9",
+      "type": "variavel",
+      "x": 457,
+      "y": 1110.5,
+      "w": 125.5,
+      "h": 72,
+      "text": "saque",
+      "font": 27,
+      "manualPosition": false
+    },
+    {
+      "id": "n10",
+      "type": "processo",
+      "x": 366,
+      "y": 1294.5,
+      "w": 308.5,
+      "h": 58,
+      "text": "saldo = saldo - saque",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n11",
+      "type": "entrada",
+      "x": 333,
+      "y": 1408.5,
+      "w": 373.5,
+      "h": 85,
+      "text": "\"Saque realizado. Saldo restante: R$ \", saldo",
+      "font": 25,
+      "manualPosition": false
+    },
+    {
+      "id": "n12",
+      "type": "inicio",
+      "x": 445,
+      "y": 1549.5,
+      "w": 150,
+      "h": 58,
+      "text": "Fim",
+      "font": 25,
+      "manualPosition": false,
+      "rx": 29
+    }
+  ],
+  "links": [
+    {
+      "from": "n1",
+      "to": "n2",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n5",
+      "to": "n6",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n6",
+      "to": "n7",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n7",
+      "to": "n8",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n8",
+      "to": "n9",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n9",
+      "to": "n7",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "from": "n7",
+      "to": "n10",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "from": "n10",
+      "to": "n11",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "n11",
+      "to": "n12",
+      "fromSide": "bottom",
+      "toSide": "top"
+    }
+  ],
+  "nextId": 13
+}

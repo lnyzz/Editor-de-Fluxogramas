@@ -14,7 +14,7 @@ O projeto permite criar, editar, organizar, salvar e **executar fluxogramas**, s
 
 Os exercícios estão na pasta [`Exercícios`](./Exercícios), separados por listas.
 
-Os arquivos **PNG** servem para visualizar as resoluções. Dentro de cada lista, a pasta **`json`** contém os arquivos que podem ser abertos e editados no editor.
+Dentro de cada lista, a pasta **`json`** contém os arquivos que podem ser abertos e editados no editor (botão **Abrir**). Para gerar imagens, use **Exportar → SVG/PNG**.
 
 👉 **[Acessar os exercícios](./Exercícios)**
 
@@ -34,6 +34,8 @@ Ou execute o projeto localmente.
 
 * Criação e edição visual de fluxogramas
 * Edição dos textos e movimentação dos blocos
+* Conexões sempre em **linhas retas ortogonais** (ângulos de 90°), com desvio automático dos blocos que estiverem no caminho
+* Roteamento que **evita cruzar outras linhas**: uma conexão contorna as demais por fora e só cruza se não existir nenhum outro caminho
 * Salvamento automático
 * Importação e exportação em **JSON**
 * Exportação para **SVG e PNG**
@@ -68,22 +70,15 @@ Os exercícios são organizados por listas:
 
 ```text
 Exercícios/
-├── Lista-01/
-│   ├── Exercício-01.png
-│   ├── Exercício-02.png
-│   └── json/
-│       ├── Exercício-01.json
-│       └── Exercício-02.json
-│
-└── Lista-02/
-    ├── Exercício-01.png
-    ├── Exercício-02.png
-    └── json/
-        ├── Exercício-01.json
-        └── Exercício-02.json
+├── Lista_01/
+│   └── json/  (fluxograma-ex1.json ... fluxograma-ex8.json)
+├── Lista_02/
+│   └── json/  (fluxograma-ex1.json ... fluxograma-exe10.json)
+└── Lista_03/
+    └── json/  (fluxograma-ex1.json ... fluxograma-ex6.json)
 ```
 
-Os **PNG** são para visualização. Os **JSON** podem ser importados no editor para abrir, editar e executar os fluxogramas.
+Os **JSON** podem ser importados no editor para abrir, editar e executar os fluxogramas.
 
 ---
 
@@ -123,6 +118,29 @@ Depois, abra o arquivo `index.html` no navegador.
 ### 🌐 Versão online
 
 👉 **https://editor-fluxogramas.free.nf/**
+
+---
+
+## 🗂️ Estrutura do projeto
+
+O código é separado por responsabilidade, sem build e sem dependências. Continua bastando abrir o `index.html` no navegador.
+
+```text
+index.html          # apenas a estrutura da página (HTML)
+css/
+└── style.css       # todos os estilos
+js/
+├── core.js         # estado global, constantes e utilitários (cria o namespace Fluxo)
+├── render.js       # geometria e desenho dos blocos e conexões no SVG (inclui o roteamento ortogonal)
+├── flow.js         # leitura do grafo (saídas dos blocos) e parsing compartilhado
+├── validation.js   # validação do fluxograma antes de executar/depurar
+├── interpreter.js  # console, avaliação de expressões, execução e depurador
+├── editor.js       # interação com o canvas, inspetor de propriedades e paleta
+├── io.js           # abrir/salvar JSON, autosave e exportação SVG/PNG
+└── main.js         # inicialização (rascunho recuperado ou "Hello, World!")
+```
+
+Os scripts são carregados em ordem pelo `index.html` e compartilham o objeto global `Fluxo`. Foram usados scripts comuns, e não `type="module"`, porque módulos ES não funcionam ao abrir o arquivo direto do disco (`file://`).
 
 ---
 
